@@ -8,8 +8,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 
 @Module({
-  imports: [BoardModule, ConfigModule.forRoot({
-    // isGlobal: true,
+  imports: [BoardModule, 
+    ConfigModule.forRoot({
+    isGlobal: true,
       envFilePath:
         process.env.NODE_ENV === "test" ? "./env/test.env" : "./env/dev.env",
       validationSchema: Joi.object({
@@ -21,6 +22,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       useFactory: (config: ConfigService) => ({
         uri: config.get('MONGO_URL'),
         connectionFactory: (connection) => {
+          //join 할떄씀
           connection.plugin(require('mongoose-autopopulate'));
           connection.set({
             strict: true,

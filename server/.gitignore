@@ -1,5 +1,5 @@
 # config
-/env
+/env/prod.env
 
 # compiled output
 /dist

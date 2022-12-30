@@ -10,11 +10,11 @@ export class BoardService {
     constructor(@InjectModel(Board.name) private boardModel: Model<BoardDocument>) {}
 
     async getAll(): Promise<Board[]> {
-        return this.boardModel.find().exec();
+        return await this.boardModel.find().exec();
     }
 
     async getOne(id:string): Promise<Board> {
-        const board = this.boardModel.findOne({ _id: id }).exec();
+        const board = await this.boardModel.findOne({ _id: id }).exec();
         if(!board){
             throw new NotFoundException(`Board ID : ${id} not found.`);
         }
