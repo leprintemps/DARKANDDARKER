@@ -1,9 +1,9 @@
-import Nav from "../components/Nav";
+import Seo from "../components/Seo";
 
 export default function Logout() {
     return (
         <div>
-            <Nav/>
+            <Seo title="Logout"/>
             LOGOUT
         </div>
     )
