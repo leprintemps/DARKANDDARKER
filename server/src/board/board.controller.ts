@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardDto, UpdateBoardDto } from './dto/board.dto';
-import { Board } from './entities/board.entity';
+import { Board } from './schema/board.schema';
 
 /***
  * Controller
@@ -14,36 +14,36 @@ export class BoardController {
 
     constructor(private readonly boardService: BoardService){}
     @Get()
-    getAll(): Board[]{
+    async getAll(): Promise<Board[]>{
         return this.boardService.getAll();
     }
 
     @Get("Search")
-    search(@Query("title") title: number ){
+    async search(@Query("title") title: string ){
         return `board search : ${title}`
     }
 
     @Get("/:id")
-    getOne(@Param('id') id: number): Board {
+    async etOne(@Param('id') id: string): Promise<Board> {
         return this.boardService.getOne(id);
     }
     @Post()
-    create(@Body() boardData: CreateBoardDto){
+    async create(@Body() boardData: CreateBoardDto): Promise<Board>{
         return this.boardService.create(boardData);
     }
     
     @Delete("/:id")
-    remove(@Param('id') boardId: number) {
+    async remove(@Param('id') boardId: string) {
         return this.boardService.deleteOne(boardId); 
     }
 
     @Put('/:id')
-    put(@Param('id') boardId: number) {
+    async put(@Param('id') boardId: string) {
         return `put board : ${boardId}`; 
     }
 
     @Patch('/:id')
-    patch(@Param('id') boardId: number, @Body() updateData: UpdateBoardDto) {
+    async patch(@Param('id') boardId: string, @Body() updateData: UpdateBoardDto): Promise<Board> {
         return this.boardService.update(boardId, updateData);
         
     }

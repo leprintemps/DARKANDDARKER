@@ -15,6 +15,8 @@ export class CreateBoardDto{
     readonly title: string;
     @IsString()
     readonly body: string;
+    @IsString()
+    readonly author: string;
     @IsString({each:true})
     @IsOptional()
     readonly comment: string[];
