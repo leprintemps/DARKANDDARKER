@@ -59,10 +59,6 @@ const userSlice = createSlice({
     promise 콜백을 실행하고 promise를 기반으로 라이프사이클 action을 dispatch한다.
     [함수명].pending, [함수명].fulfilled, [함수명].rejected 세가지의 thunk action creator가 생성된다.
 
-    pending : pending 액션을 dispatch하는 thunk action creator
-    fulfilled : fulfilled 액션을 dispatch하는 thunk action creator
-    rejected : rejected 액션을 dispatch하는 thunk action creator
-
     thunk의 실행순서
     1. pending action을 dispatch 한다.
     2. payloadCreator 콜백을 호출하고 promise가 반환되기를 기다린다.

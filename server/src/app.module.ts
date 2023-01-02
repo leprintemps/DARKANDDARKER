@@ -1,15 +1,16 @@
-import { UserModule } from './user/user.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BoardModule } from './board/board.module';
 import { MongooseModule } from '@nestjs/mongoose';
-
+import { BoardModule } from './board/board.module';
+import { UserModule } from './user/user.module';
+// import { AuthModule } from "./auth/auth.module";
 
 @Module({
-  imports: [BoardModule, UserModule,
+  imports: [BoardModule, UserModule, 
+    // AuthModule,
     ConfigModule.forRoot({
     isGlobal: true,
       envFilePath:

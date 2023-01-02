@@ -1,15 +1,17 @@
 import { User } from './schema/user.schema';
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, UseGuards, Param, Post, Body, Request } from "@nestjs/common";
 import { UserService } from './user.service';
-import { Param } from '@nestjs/common';
-import { Post } from '@nestjs/common';
-import { Body } from '@nestjs/common';
 import { CreateUserDto } from './dto/user.dto';
+import { AuthGuard } from '@nestjs/passport';
+// import { AuthService } from 'src/auth/auth.service';
 
 @Controller("user")
 export class UserController {
 
-    constructor(private readonly userService: UserService){}
+    constructor(
+        private userService: UserService,
+        // private authService: AuthService,
+    ){}
 
     // 유저 정보 조회
     @Get("/:username")
@@ -24,6 +26,11 @@ export class UserController {
     }
 
     // 유저 로그인
+    @UseGuards(AuthGuard('local'))
+    @Post("/login")
+    async login(@Request() req: any){
+        return req.user;
+    }
     
     // 유저 로그아웃
 

@@ -15,16 +15,16 @@ export type UserDocument = HydratedDocument<User>;
 @Schema()
 export class User implements userField {
 
-    @Prop({ type: String, required: true, trim: true, maxlength: 30 })
+    @Prop({ type: String, required: true, trim: true, maxlength: 30, unique: true })
     username: string
 
-    @Prop({ type: String, required: true, trim: true, maxlength: 30 })
+    @Prop({ type: String, required: true, trim: true, maxlength: 100 })
     password: string
 
     @Prop({ type: String, required: true, trim: true, maxlength: 30 })
     name : string
 
-    @Prop({ type: String, required: true, trim: true, maxlength: 100 })
+    @Prop({ type: String, required: true, trim: true, maxlength: 100, unique: true })
     email: string
 
     @Prop({ type: String, trim: true, maxlength: 30 })
