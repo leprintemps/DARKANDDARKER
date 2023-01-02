@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Seo from "../components/Seo";
 import { useAppDispatch } from "../redux/hooks";
-import { User, userJoinAsync } from "../redux/modules/user";
+import { User, joinUserAsync } from "../redux/modules/user";
+import { useRouter } from "next/router";
 
 type JoinProps = {
 }
@@ -9,6 +10,7 @@ type JoinProps = {
 const Join: React.FC<JoinProps> = ({}) => {
     
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const [User, setUser] = useState<User>({
         username: "",
@@ -30,7 +32,13 @@ const Join: React.FC<JoinProps> = ({}) => {
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
-        dispatch(userJoinAsync(User));
+        dispatch(joinUserAsync(User))
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((reason) => {
+            console.log(reason);
+        })
     }
 
     return (
