@@ -1,6 +1,7 @@
+import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from './dto/user.dto';
 import { User, UserDocument } from './schema/user.schema';
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt'
@@ -11,6 +12,7 @@ export class UserService {
     constructor(
         @InjectModel(User.name) 
         private userModel: Model<UserDocument>,
+        private jwtService: JwtService,
     ) {}
     
     // 유저 조회
@@ -28,6 +30,35 @@ export class UserService {
             password: hashedPassword,
         });
     }
+
+    // access token 생성
+    async login(user: User) {
+        user.token = await this.jwtService.sign({ username: user.username });
+        
+        return user;
+    }
+
+    // 유저 로그인
+    // async loginUser(userData: CreateUserDto): Promise<User> {
+    //     const { username, password } = userData;
+
+    //     const user = await this.userModel.findOne({ username });
+
+    //     if ( !user ) {
+    //         throw new HttpException("username is not exists.", HttpStatus.BAD_REQUEST);
+    //     }
+
+    //     const isPasswordMatched = await bcrypt.compare(password, user.password);
+
+    //     if ( !isPasswordMatched ) {
+    //         throw new HttpException("password is not matched.", HttpStatus.BAD_REQUEST);
+    //     }
+
+    //     const accessToken = this.jwtService.sign({username: user.username});
+    //     user.token = accessToken;
+
+    //     return user;
+    // }
 
     // 유저 로그아웃
     async logoutUser(username: string) : Promise<void> {

@@ -1,4 +1,6 @@
 import Link from "next/link";
+
+
 export default function Nav() {
     return (
         <nav>
@@ -21,6 +23,11 @@ export default function Nav() {
                 <li>
                     <Link href="/logout">
                         Logout
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/profile">
+                        Profile
                     </Link>
                 </li>
                 <li>

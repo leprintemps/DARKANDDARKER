@@ -27,8 +27,12 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         // state를 반환( state == user )
-        getUserInfo: (state) => {
-            state;
+        // getUserInfo: (state) => {
+        //     state;
+        // }
+        login: (state, action) => {
+            console.log("action.payload : ", action.payload)
+            state = action.payload;
         }
     },
     // promise pending ? fulfilled : rejected
@@ -40,6 +44,12 @@ const userSlice = createSlice({
         // getUserAsync가 rejected일 때
         builder.addCase(getUserAsync.rejected, (state, action) => {
         });
+
+        // loginUserAsync - fulfilled
+        builder.addCase(loginUserAsync.fulfilled, (state, action) => {
+            state = action.payload
+            return {...state, ...action.payload}
+        })
     },
 });
 
@@ -73,31 +83,33 @@ const userSlice = createSlice({
 */
 
 // 유저정보 조회
-export const getUserAsync = createAsyncThunk("USER_GET", async(User : User) : Promise<User> => {
-    const response = await axios.get(`/api/${User.username}`);
+export const getUserAsync = createAsyncThunk("USER_GET", async(user : User) : Promise<User> => {
+    const response = await axios.get(`/api/${user.username}`);
     return response.data;
 })
 
 // 유저 회원가입
-export const joinUserAsync = createAsyncThunk("USER_JOIN", async(User : User) : Promise<User> => {
-    const response = await axios.post("/user/join", User);
+export const joinUserAsync = createAsyncThunk("USER_JOIN", async(user: User) : Promise<User> => {
+    const response = await axios.post("/user/join", user);
     return response.data;
 })
 
 // 유저 로그인
-export const loginUserAsync = createAsyncThunk("USER_LOGIN", async(User : User) : Promise<User> => {
-    const response = await axios.post("/user/login");
+export const loginUserAsync = createAsyncThunk("USER_LOGIN", async(user : User) : Promise<User> => {
+    const response = await axios.post("/user/login", user);
     return response.data;
 })
 
 // 유저 로그아웃
-export const logoutUserAsync = createAsyncThunk("USER_LOGOUT", async(User: User) : Promise<User> => {
-    const response = await axios.post("/user/logout", User);
+export const logoutUserAsync = createAsyncThunk("USER_LOGOUT", async(user: User) : Promise<User> => {
+    const response = await axios.post("/user/logout", user);
     return response.data;
 })
 
+export const { login } = userSlice.actions;
+
 // export const getUserInfo = (state: RootState) => state.user;
 
-export const { getUserInfo } = userSlice.actions;
+// export const { getUserInfo } = userSlice.actions;
 
 export default userSlice.reducer;

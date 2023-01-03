@@ -20,8 +20,8 @@ const Join: React.FC<JoinProps> = ({}) => {
         location: "",
     })
 
-    const handleChange = ( e: React.ChangeEvent<HTMLInputElement> ) => {
-        const { name, value } = e.target;
+    const handleChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
+        const { name, value } = event.target;
 
         setUser({
             ...User,
@@ -50,7 +50,7 @@ const Join: React.FC<JoinProps> = ({}) => {
                 email : <input type="email" name="email" required onChange={handleChange}/>
                 name : <input type="name" name="name" required onChange={handleChange}/>
                 location : <input type="location" name="location" required onChange={handleChange}/>
-                <button>regist</button>
+                <button type="submit">regist</button>
             </form>
         </>
     )

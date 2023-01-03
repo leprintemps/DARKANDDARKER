@@ -1,9 +1,11 @@
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from '../auth/jwt.strategy';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { User, UserSchema } from './schema/user.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from "@nestjs/common";
-import { JwtModule } from "@nestjs/jwt";
 
 /*
     imports:
@@ -18,16 +20,16 @@ import { JwtModule } from "@nestjs/jwt";
 @Module({
     imports: [
         MongooseModule.forFeature([{ name:User.name, schema: UserSchema }]), 
-        // JWT 모듈을 임포트 한다.
+        // session을 사용하지 않을 예정이기 때문에 false
+        PassportModule.register({ defaultStrategy: 'jwt', session: false }),
+        // jwt 생성할 때 사용할 시크릿 키와 만료일자 적어주기
         JwtModule.register({
-            // JWT 시크릿키 설정
-            secret: "34rj2f3jdjskda129dj1kdn32diwned",
-            // 만료시간 설정
-            signOptions: { expiresIn: "60s" }
-        })
+            secret: "23r92d9j29d30j29j23i9f",
+            signOptions: { expiresIn: "10h" },
+        }),
     ],
     controllers: [UserController],
-    providers: [UserService],
-    exports: [],
+    providers: [UserService, JwtStrategy],
+    exports: [UserService],
 })
 export class UserModule {}

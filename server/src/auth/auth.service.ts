@@ -1,29 +1,36 @@
-// import { User } from './../user/schema/user.schema';
-// import { UserService } from './../user/user.service';
-// import { Injectable } from "@nestjs/common";
-// import { compare } from "bcrypt";
-// import { JwtService } from "@nestjs/jwt";
+import { JwtService } from '@nestjs/jwt';
+import { User, UserDocument } from './../user/schema/user.schema';
+import * as bcrypt from 'bcrypt'
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
-// @Injectable()
-// export class AuthService {
-//     constructor(
-//         private userService: UserService,
-//         private jwtService: JwtService,
-//     ) {}
+@Injectable()
+export class AuthService {
 
-//     async validateUser(username: string, password: string): Promise<User> {
-//         const user = await this.userService.getUser(username);
+    constructor(
+        @InjectModel(User.name) 
+        private userModel: Model<UserDocument>,
+        private jwtService: JwtService,
+    ) {}
 
-//         // username이 존재하지 않거나 비밀번호가 일치하지 않다면
-//         if ( !user || ( user && !compare(password, user.password) ) ) {
-//             return null;
-//         }
+    // 유저 검증
+    async validateUser(username: string, password: string): Promise<User> {
+        console.log("AuthService - validateUser")
         
-//         return user;
-//     }
-
-//     async login(username: string, password: string) {
-//         const payload = { username };
-//         return { accessToken : this.jwtService.sign(payload) };
-//     }
-// }
+        const user = await this.userModel.findOne({ username });
+    
+        if ( !user ) {
+            throw new HttpException("username is not exists.", HttpStatus.BAD_REQUEST);
+        }
+    
+        const isPasswordMatched = await bcrypt.compare(password, user.password);
+    
+        if ( !isPasswordMatched ) {
+            throw new HttpException("password is not matched.", HttpStatus.BAD_REQUEST);
+        }
+    
+        return user;
+    }
+    
+}
