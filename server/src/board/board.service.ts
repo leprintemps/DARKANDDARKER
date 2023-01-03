@@ -8,11 +8,14 @@ import { Board, BoardDocument } from './schema/board.schema';
 @Injectable()
 export class BoardService {
     constructor(@InjectModel(Board.name) private boardModel: Model<BoardDocument>) {}
-
+    
     async getAll(): Promise<Board[]> {
         return await this.boardModel.find().exec();
     }
-
+    
+    search(title: string): Promise<Board[]> {
+        throw new Error('Method not implemented.');
+    }
     async getOne(id:string): Promise<Board> {
         const board = await this.boardModel.findOne({ _id: id }).exec();
         if(!board){
@@ -31,8 +34,8 @@ export class BoardService {
         return deletedBoard;
     }
     async create(boardData: CreateBoardDto): Promise<Board> {
-        const createdCat = await this.boardModel.create(boardData);
-        return createdCat;
+        const createdBoard = await this.boardModel.create(boardData);
+        return createdBoard;
     }
 
     async update(id:string, updateData: UpdateBoardDto): Promise<Board> {

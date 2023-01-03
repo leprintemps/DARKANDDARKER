@@ -5,6 +5,7 @@ import { BoardService } from './board.service';
 import { Board, BoardSchema } from './schema/board.schema';
 
 @Module({
+    //.name은 함수나 클래스등의 이름을 반환하는 읽기전용 프로퍼티 'Board'와 동일
     imports: [MongooseModule.forFeature([{ name: Board.name, schema: BoardSchema }])],
     controllers: [BoardController],
     providers: [BoardService],

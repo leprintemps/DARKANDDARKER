@@ -1,6 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 
+export interface boardField {
+    createdAt: Date,
+    updatedAt: Date,
+    title: string,
+    author: string,
+    body: string,
+    comments: Board[],
+}
+
 // MongoDB의 가장 작은 단위가 Document, 모듈에서 사용할 타입을 export 시켜줌
 export type BoardDocument = HydratedDocument<Board>;
 
@@ -8,7 +17,7 @@ export type BoardDocument = HydratedDocument<Board>;
 // createdAt과 updatedAt둘 중에 하나만 사용하고 싶다면 아래와 같이 작성도 가능하다.
 // @Schema({ timestamps: { createdAt: "createdAt", updatedAt: false } })
 @Schema({ timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } })
-export class Board{
+export class Board implements boardField{
 
   @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
   createdAt: Date;
@@ -23,7 +32,7 @@ export class Board{
   author: string;
 
   @Prop({ type: String, required: true })
-  body: number;
+  body: string;
   
   
   // object를 저장하는 것도 가능하다.
