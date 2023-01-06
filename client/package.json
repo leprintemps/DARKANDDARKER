@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
     "@next/font": "13.1.1",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/node": "18.11.18",
@@ -21,7 +23,6 @@
     "cookies-next": "^2.1.1",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",
-    "mvp.css": "^1.12.0",
     "next": "13.1.1",
     "react": "18.2.0",
     "react-cookie": "^4.1.1",

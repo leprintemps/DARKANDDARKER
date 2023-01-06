@@ -1,3 +1,6 @@
+import { Stack } from "@mui/material";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -36,15 +39,16 @@ export default function BoardDetail() {
     return (
         <div>
             <Seo title="Board"/>
-            <p>제목 : {board.title}</p>
-            <p>날짜 : {board.createdAt}</p>
-            <p>작성자 : {board.author}</p>
-            <p>내용 : {board.body}</p>
+            <Typography variant="h3" component="h2">{board.title}</Typography>
+            
+            <p>{board.author}</p>
+            <p>{board.createdAt}</p>
+            <Typography paragraph>{board.body}</Typography>
             <br/>
-            <Link href={`/board/edit?id=${id}`}>
-                <button>수정</button>
-            </Link>
-            <button onClick={onClickDelete}>삭제</button>
+            <Stack spacing={2} direction="row">
+                <Button variant="outlined" component={Link} href={`/board/edit?id=${id}`}>수정</Button>
+                <Button variant="contained" onClick={onClickDelete}>삭제</Button>
+            </Stack>
         </div>
     )
 }

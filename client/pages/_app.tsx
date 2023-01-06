@@ -1,8 +1,12 @@
 import { AppProps } from "next/app";
 import Layout from "../components/Layout";
-import "mvp.css";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Theme, ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
 import store from "../redux/configStore";
+import theme from "../modules/theme";
+import { createTheme, useMediaQuery } from "@mui/material";
+import React from "react";
 
 /*
     https://nextjs.org/docs/basic-features/typescript#custom-app
@@ -12,12 +16,17 @@ import store from "../redux/configStore";
 
     Component == page
 */
+
 export default function App({ Component, pageProps } : AppProps) {
     return (
-        <Provider store={store}>
-            <Layout>
-                <Component { ...pageProps } />
-            </Layout>
-        </Provider>
+        <ThemeProvider theme={theme()}>
+            <CssBaseline />
+            <Provider store={store}>
+                <Layout>
+                    <Component { ...pageProps } />
+                </Layout>
+            </Provider>
+        </ThemeProvider>
     )
 } 
+
