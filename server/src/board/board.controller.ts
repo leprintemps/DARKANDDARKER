@@ -9,7 +9,7 @@ import { Board } from './schema/board.schema';
  * url가져오고 함수 실행
  */
 
-@Controller('/api/board')
+@Controller('board')
 export class BoardController {
 
     constructor(private readonly boardService: BoardService){}
@@ -19,23 +19,21 @@ export class BoardController {
     }
 
     @Get("Search")
-    async search(@Query("title") title: string ): Promise<Board[]>{
-        return this.boardService.search(title);
+    async search(@Query("title") title: string ){
+        return `board search : ${title}`
     }
 
     @Get("/:id")
-    async getOne(@Param('id') id: string): Promise<Board> {
+    async etOne(@Param('id') id: string): Promise<Board> {
         return this.boardService.getOne(id);
     }
     @Post()
     async create(@Body() boardData: CreateBoardDto): Promise<Board>{
-        const result = this.boardService.create(boardData);
-        console.log(result);
-        return result;
+        return this.boardService.create(boardData);
     }
     
     @Delete("/:id")
-    async remove(@Param('id') boardId: string): Promise<Board> {
+    async remove(@Param('id') boardId: string) {
         return this.boardService.deleteOne(boardId); 
     }
 

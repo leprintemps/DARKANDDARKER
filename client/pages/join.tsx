@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Seo from "../components/Seo";
 import { useAppDispatch } from "../redux/hooks";
-import { User, joinUserAsync } from "../redux/modules/user";
+import { authLocalSignupAsync, userDto } from "../redux/modules/auth";
 import { useRouter } from "next/router";
 
 type JoinProps = {
@@ -12,7 +12,7 @@ const Join: React.FC<JoinProps> = ({}) => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const [User, setUser] = useState<User>({
+    const [user, setUser] = useState<userDto>({
         username: "",
         password: "",
         name: "",
@@ -24,7 +24,7 @@ const Join: React.FC<JoinProps> = ({}) => {
         const { name, value } = event.target;
 
         setUser({
-            ...User,
+            ...user,
             [name]: value,
         })
     }
@@ -32,9 +32,9 @@ const Join: React.FC<JoinProps> = ({}) => {
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
-        dispatch(joinUserAsync(User))
-        .then((response) => {
-            console.log(response);
+        dispatch(authLocalSignupAsync(user))
+        .then(() => {
+            router.push("/");
         })
         .catch((reason) => {
             console.log(reason);

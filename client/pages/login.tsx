@@ -2,14 +2,14 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Seo from "../components/Seo";
 import { useAppDispatch } from "../redux/hooks";
-import { loginUserAsync, User, login } from "../redux/modules/user";
+import { authLocalSigninAsync, userDto } from "../redux/modules/auth";
 
 export default function Login() {
 
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const [User, setUser] = useState<User> ({
+    const [user, setUser] = useState<userDto> ({
         username: "",
         password: "",
         name: "",
@@ -17,22 +17,20 @@ export default function Login() {
         location: "",
     })
     
-        const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-            const { name, value } = event.target;
-    
-            setUser({
-                ...User,
-                [name]: value,
-            })
-        }
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+
+        setUser({
+            ...user,
+            [name]: value,
+        })
+    }
 
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        dispatch(loginUserAsync(User))
-        .then((response) => {
-            console.log("login.tsx : ", response.payload);
-            // login(response.payload);
+        dispatch(authLocalSigninAsync(user))
+        .then(() => {
             router.push("/")
         })
         .catch((reason) => {

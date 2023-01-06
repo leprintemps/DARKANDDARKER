@@ -1,3 +1,4 @@
+import { AtGuard } from './common/guards/at.guard';
 import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -7,6 +8,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BoardModule } from './board/board.module';
 import { UserModule } from './user/user.module';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [BoardModule, 
@@ -41,6 +43,12 @@ import { UserModule } from './user/user.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AtGuard,
+    }
+  ],
 })
 export class AppModule {}
