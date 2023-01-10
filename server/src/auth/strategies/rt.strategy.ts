@@ -34,4 +34,5 @@ export class RtStrategy extends PassportStrategy(Strategy, "jwt-refresh") {
         const rt = request.cookies["refresh_token"];
         return {...payload, rt};
     }
+
 }

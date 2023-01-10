@@ -9,7 +9,7 @@ export interface userDto {
     location: string;
 }
 
-export interface userState {
+export interface authState {
     _id: string;
     username: string;
     isLoading: boolean;
@@ -27,6 +27,9 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
+        logoutUser(state) {
+            state.isLoggedin = false;
+        }
     },
     extraReducers: (builder) => {
         // 회원가입 pending
@@ -92,9 +95,6 @@ export const authLogoutAsync = createAsyncThunk("AUTH_LOGOUT", async(_id: string
     await request.post("/auth/logout", _id);
 })
 
-// 토큰 재발급
-export const authRefreshAsync = createAsyncThunk("AUTH_REFRESH", async(_id: string) : Promise<void> => {
-    await request.post("/auth/refresh", _id);
-})
+export const { logoutUser } = authSlice.actions;
 
 export default authSlice.reducer;

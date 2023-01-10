@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { logoutUser } from '../../redux/modules/auth';
 
 /* 
     인터셉터는 1.요청하기 직전, 2. 응답을 받고 then, catch로 처리 직전에 가로챌 수 있습니다.
@@ -23,8 +24,28 @@ const createInstance = () => {
         (response) => {
 			return response;
 		},
-        (error) => {
-            // 응답결과에 액세스토큰 만료오류 를 보낼경우 여기서 처리하는등 응답결과에 따른 처리 로직을 작성한다.
+        async (error) => {
+            // 엑세스 토큰에서 문제가 발생
+            if ( error.response.data.code === "AT_401" ){
+                
+                // access_token 재발급 처리
+                await request.post("/auth/refresh");
+                
+                return instance.request(error.config);
+            }
+            
+            // 리프레쉬 토큰에서 문제가 발생
+            if ( error.response.data.code === "RT_401" ){
+
+                // 로그아웃 처리
+                logoutUser();
+                
+                // 로그인 화면으로 이동
+                window.location.href = "/login";
+
+                // promise chaining 끊기
+                return Promise.reject();
+            }
         }
     )
 

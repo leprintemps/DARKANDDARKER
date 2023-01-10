@@ -3,7 +3,7 @@ import { RtGuard } from './../common/guards/rt.guard';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { Body, Controller, Post, Req, Res, UseGuards } from "@nestjs/common";
-import { GetCurrentUser, GetCurrentUserId, Public } from '../common/decorators';
+import { GetCurrentRt, GetCurrentUserId, Public } from '../common/decorators';
 import { Response } from 'express';
 
 @Controller("auth")
@@ -59,11 +59,12 @@ export class AuthController {
     }
 
     // refresh 토큰 재생성
+    @Public()
     @UseGuards(RtGuard)
     @Post("refresh")
     async refreshToken(
         @GetCurrentUserId() _id: string,
-        @GetCurrentUser("refreshToken") rt: string,
+        @GetCurrentRt() rt: string,
         @Res({passthrough:true}) response: Response 
     ) : Promise<ProcessResult>{
 

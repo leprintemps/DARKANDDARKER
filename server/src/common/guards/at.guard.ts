@@ -1,3 +1,4 @@
+import { AccessTokenException } from './../../exceptions/index';
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
@@ -22,4 +23,14 @@ export class AtGuard extends AuthGuard("jwt") {
 
         return super.canActivate(context);
     }
+
+    handleRequest<User = any>(err: any, user: any, info: any, context: ExecutionContext, status?: any): User {
+
+        if ( info instanceof Error ) {
+            throw new AccessTokenException();
+        }
+
+        return user;
+    }
+
 }

@@ -1,6 +1,8 @@
+import { TokenExceptionFilter } from './filter/token.exception.filter';
+import { HttpExceptionFilter } from './filter/http.exception.filter';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
-import { NestFactory, Reflector } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 /***
@@ -23,6 +25,9 @@ async function bootstrap() {
    * class 유효성검사등에 사용
    */
   app.enableCors(options);
+  // excpetion filter 전역에서 사용
+  app.useGlobalFilters(new HttpExceptionFilter()); 
+  app.useGlobalFilters(new TokenExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     forbidNonWhitelisted : true,
