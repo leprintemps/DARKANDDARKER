@@ -7,6 +7,9 @@ export interface managerField {
 
   user: User,
   isEditable: boolean,
+  createdAt: Date,
+  updatedAt: Date,
+  deletedAt: Date,
 
 }
 
@@ -15,14 +18,20 @@ export type ManagerDocument = HydratedDocument<Manager>;
 @Schema({ timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } })
 export class Manager implements managerField{
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Blog", required: true })
-  blog: Blog;
-
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User", required: true })
   user: User;
 
   @Prop({ type: Boolean, default: false })
   isEditable: boolean;
+
+  @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
+  createdAt: Date;
+
+  @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
+  updatedAt: Date;
+
+  @Prop({ default: null, type: mongoose.Schema.Types.Date })
+  deletedAt: Date;
 
 }
 

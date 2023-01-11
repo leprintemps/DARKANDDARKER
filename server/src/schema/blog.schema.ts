@@ -1,11 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
+import { Board } from './board.schema';
+import { Manager } from './manager.schema';
+import { User } from './user.schema';
 
 export interface blogField {
   isPublic: boolean,
   name: string,
   description: string,
+  owner: User,
   managers: Manager[],
+  boards: Board[],
   createdAt: Date,
   updatedAt: Date,
   deletedAt: Date,
@@ -26,9 +31,15 @@ export class Blog implements blogField{
   @Prop({ type: String, required: true, trim: true, maxLength: 30 }) 
   description: string;
   
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Manager' })
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  owner: User;
+
+  @Prop({type:[{ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Board' }]})
+  boards: Board[];
+
+  @Prop({type:[{ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Manager' }]})
   managers: Manager[];
-  
+    
   @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
   createdAt: Date;
 

@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { Public } from 'src/common/decorators';
 import { PostService } from './post.service';
-import { CreatePostDto, UpdatePostDto } from './dto/post.dto';
-import { Post } from '../schema/post.schema';
+import { CreatePostDto, UpdatePostDto } from '../../dto/post.dto';
+import { Post as Posts } from '../../schema/post.schema';
 
 /***
  * Controller
@@ -17,7 +17,7 @@ export class PostController {
     
     @Public()
     @Get()
-    async getAll(): Promise<Post[]>{
+    async getAll(): Promise<Posts[]>{
         const Posts = this.postService.getAll();
         return Posts;
     }
@@ -30,13 +30,13 @@ export class PostController {
 
     @Public()
     @Get("/:id")
-    async etOne(@Param('id') id: string): Promise<Post> {
+    async etOne(@Param('id') id: string): Promise<Posts> {
         return this.postService.getOne(id);
     }
 
     @Public()
     @Post()
-    async create(@Body() postData: CreatePostDto): Promise<Post>{
+    async create(@Body() postData: CreatePostDto): Promise<Posts>{
         return this.postService.create(postData);
     }
     
@@ -52,9 +52,10 @@ export class PostController {
         return `put post : ${postId}`; 
     }
 
+
     @Public()
     @Patch('/:id')
-    async patch(@Param('id') postId: string, @Body() updateData: UpdatePostDto): Promise<Post> {
+    async patch(@Param('id') postId: string, @Body() updateData: UpdatePostDto): Promise<Posts> {
         return this.postService.update(postId, updateData);
         
     }

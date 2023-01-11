@@ -6,8 +6,8 @@ import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PostModule } from './post/post.module';
-import { UserModule } from './user/user.module';
+import { PostModule } from './modules/post/post.module';
+import { UserModule } from './modules/user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({

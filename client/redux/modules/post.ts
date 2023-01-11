@@ -43,23 +43,23 @@ const postSlice = createSlice({
 });
 
 
-export const getPostAsync = createAsyncThunk("BOARD_GET", async() : Promise<Post[]> => {
+export const getPostAsync = createAsyncThunk("POST_GET", async() : Promise<Post[]> => {
     const response = await request.get(`/post`);
     console.log(response)
     return response.data;
 })
 
-export const detailPostAsync = createAsyncThunk("BOARD_DETAIL", async(id : string) : Promise<Post> => {
+export const detailPostAsync = createAsyncThunk("POST_DETAIL", async(id : string) : Promise<Post> => {
     const response = await request.get(`/post/${id}`);
     return response.data;
 })
 
-export const createPostAsync = createAsyncThunk("BOARD_CREATE", async(Post : {title:string,author:string,body:string}) : Promise<Post> => {
+export const createPostAsync = createAsyncThunk("POST_CREATE", async(Post : {title:string,author:string,body:string}) : Promise<Post> => {
     const response = await request.post(`/post`, Post);
     return response.data;
 })
 
-export const editPostAsync = createAsyncThunk("BOARD_EDIT", async(Post : {_id:string,title:string,author:string,body:string}) : Promise<Post> => {
+export const editPostAsync = createAsyncThunk("POST_EDIT", async(Post : {_id:string,title:string,author:string,body:string}) : Promise<Post> => {
     const postBody = {
         title: Post.title,
         author: Post.author,
@@ -69,7 +69,7 @@ export const editPostAsync = createAsyncThunk("BOARD_EDIT", async(Post : {_id:st
     return response.data;
 })
 
-export const deletePostAsync = createAsyncThunk("BOARD_EDIT", async(id : string) : Promise<Post> => {
+export const deletePostAsync = createAsyncThunk("POST_EDIT", async(id : string) : Promise<Post> => {
     const response = await request.delete(`/post/${id}`);
     return response.data;
 })

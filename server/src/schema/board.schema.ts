@@ -5,9 +5,10 @@ import { Post } from './post.schema';
 export interface boardField {
   title: string,
   description: string,
-  post: Post[],
-  createAt: Date,
-  updateAt: Date,
+  posts: Post[],
+  createdAt: Date,
+  updatedAt: Date,
+  deletedAt: Date,
 }
 
 export type BoardDocument = HydratedDocument<Board>;
@@ -22,13 +23,16 @@ export class Board implements boardField{
   description: string;
   
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }] })
-  post: Post[];
+  posts: Post[];
 
   @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
-  createAt: Date;
+  createdAt: Date;
 
   @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
-  updateAt: Date;
+  updatedAt: Date;
+
+  @Prop({ default: null, type: mongoose.Schema.Types.Date })
+  deletedAt: Date;
 
 }
 

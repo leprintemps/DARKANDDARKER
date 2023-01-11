@@ -1,6 +1,8 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { IsString, IsNumber, IsOptional, IsEmpty } from "class-validator";
-import { Post, postField } from "../../schema/post.schema";
+import { IsObjectId } from "src/common/decorators/is-object-id.decorator";
+import { Post, postField } from "../schema/post.schema";
+import { CreateCommentDto } from "./comment.dto";
 
 /***
  * DTO(Data Transfer Object)
@@ -10,20 +12,21 @@ import { Post, postField } from "../../schema/post.schema";
  * class-validator
  * https://github.com/typestack/class-validator
  */
-export class CreatePostDto implements postField{
+export class CreatePostDto {
     
     @IsString()
-    readonly title: string;
+    title: string;
     @IsString()
-    readonly body: string;
+    body: string;
     @IsString()
-    readonly author: string;
-    @IsString({each:true})
+    author: string;
+    @IsObjectId({each:true})
     @IsOptional()
-    comments: Post[];
+    comments: CreateCommentDto[];
     
     createdAt: Date;
     updatedAt: Date;
+    deletedAt: Date;
 }
 
 export class UpdatePostDto extends PartialType(CreatePostDto){}
