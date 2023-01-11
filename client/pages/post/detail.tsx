@@ -6,20 +6,20 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Seo from "../../components/Seo";
 import { useAppDispatch } from "../../redux/hooks";
-import { Board, deleteBoardAsync, detailBoardAsync, initialBoard } from "../../redux/modules/board";
+import { Post, deletePostAsync, detailPostAsync, initialPost } from "../../redux/modules/post";
 
-export default function BoardDetail() {
+export default function PostDetail() {
     const dispatch = useAppDispatch();
     const router = useRouter();
-    const [board, setBoard] = useState<Board>(initialBoard);
+    const [post, setPost] = useState<Post>(initialPost);
     const id = router.query.id as string;
 
     useEffect(() => {
       if(!router.isReady) return;
-      dispatch(detailBoardAsync(id))
+      dispatch(detailPostAsync(id))
         .then((response: any) => {
             console.log(response);
-            setBoard(response.payload);
+            setPost(response.payload);
         })
         .catch((reason) => {
             alert(reason);
@@ -27,9 +27,9 @@ export default function BoardDetail() {
     }, [router.isReady]);
   
     const onClickDelete = () => {
-        dispatch(deleteBoardAsync(id))
+        dispatch(deletePostAsync(id))
         .then((response) => {
-            router.push("/board");
+            router.push("/post");
         })
         .catch((reason) => {
             alert(reason);
@@ -38,15 +38,15 @@ export default function BoardDetail() {
 
     return (
         <div>
-            <Seo title="Board"/>
-            <Typography variant="h3" component="h2">{board.title}</Typography>
+            <Seo title="Post"/>
+            <Typography variant="h3" component="h2">{post.title}</Typography>
             
-            <p>{board.author}</p>
-            <p>{board.createdAt}</p>
-            <Typography paragraph>{board.body}</Typography>
+            <p>{post.author}</p>
+            <p>{post.createdAt}</p>
+            <Typography paragraph>{post.body}</Typography>
             <br/>
             <Stack spacing={2} direction="row">
-                <Button variant="outlined" component={Link} href={`/board/edit?id=${id}`}>수정</Button>
+                <Button variant="outlined" component={Link} href={`/post/edit?id=${id}`}>수정</Button>
                 <Button variant="contained" onClick={onClickDelete}>삭제</Button>
             </Stack>
         </div>

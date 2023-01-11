@@ -1,4 +1,4 @@
-import { User, UserSchema } from './../user/schema/user.schema';
+import { User, UserSchema } from '../schema/user.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { RtStrategy } from './strategies/rt.strategy';
 import { AtStrategy } from './strategies/at.strategy';

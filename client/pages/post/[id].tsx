@@ -5,24 +5,24 @@ import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import Seo from "../../components/Seo";
 import { useAppDispatch } from "../../redux/hooks";
-import { Board, detailBoardAsync, initialBoard } from "../../redux/modules/board";
+import { Post, detailPostAsync, initialPost } from "../../redux/modules/post";
 
-interface BoardPostProps {
-    board: Board
+interface PostPostProps {
+    post: Post
   }
 
-const BoardList = ({board}: BoardPostProps): ReactElement => {
+const PostList = ({post}: PostPostProps): ReactElement => {
     const dispatch = useAppDispatch();
     const router = useRouter();
-    // const [board, setBoard] = useState<Board>(initialBoard);
+    // const [post, setPost] = useState<Post>(initialPost);
     const id = router.query.id;
 
     // useEffect(() => {
     //   if(!router.isReady) return;
-    //   dispatch(detailBoardAsync(id))
+    //   dispatch(detailPostAsync(id))
     //     .then((response) => {
     //         console.log(response);
-    //         setBoard(response.payload);
+    //         setPost(response.payload);
     //     })
     //     .catch((reason) => {
     //         alert(reason);
@@ -33,19 +33,19 @@ const BoardList = ({board}: BoardPostProps): ReactElement => {
 
     return (
         <div>
-            <Seo title="Board"/>
-            <p>제목 : {board.title}</p>
-            <p>날짜 : {board.createdAt}</p>
-            <p>작성자 : {board.author}</p>
-            <p>내용 : {board.body}</p>
+            <Seo title="Post"/>
+            <p>제목 : {post.title}</p>
+            <p>날짜 : {post.createdAt}</p>
+            <p>작성자 : {post.author}</p>
+            <p>내용 : {post.body}</p>
             <br/>
-            <Link href="/board/form">
+            <Link href="/post/form">
                 <button>등록</button>
             </Link>
         </div>
     )
 }
-export default BoardList;
+export default PostList;
 
 // export async function getStaticPaths(): GetStaticPaths {
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -68,10 +68,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 // let fullName = params.name.split("-").map(namePart => namePart[0].toUpperCase() + namePart.slice(1)).join(" ");
 // let musician = findMusician(fullName);
 // const { lang, slug } = params
-const board = initialBoard
+const post = initialPost
 return {
     props: {
-    board
+    post
     }
 }
 }

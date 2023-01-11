@@ -1,6 +1,6 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { IsString, IsNumber, IsOptional, IsEmpty } from "class-validator";
-import { Board, boardField } from "../schema/board.schema";
+import { Post, postField } from "../../schema/post.schema";
 
 /***
  * DTO(Data Transfer Object)
@@ -10,7 +10,7 @@ import { Board, boardField } from "../schema/board.schema";
  * class-validator
  * https://github.com/typestack/class-validator
  */
-export class CreateBoardDto implements boardField{
+export class CreatePostDto implements postField{
     
     @IsString()
     readonly title: string;
@@ -20,10 +20,10 @@ export class CreateBoardDto implements boardField{
     readonly author: string;
     @IsString({each:true})
     @IsOptional()
-    comments: Board[];
+    comments: Post[];
     
     createdAt: Date;
     updatedAt: Date;
 }
 
-export class UpdateBoardDto extends PartialType(CreateBoardDto){}
+export class UpdatePostDto extends PartialType(CreatePostDto){}

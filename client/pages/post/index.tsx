@@ -3,35 +3,35 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Seo from "../../components/Seo";
 import { useAppDispatch } from "../../redux/hooks";
-import { Board, getBoardAsync } from "../../redux/modules/board";
+import { Post, getPostAsync } from "../../redux/modules/post";
 
-export default function BoardList() {
+export default function PostList() {
     const dispatch = useAppDispatch();
     const router = useRouter();
-    const [boards, setBoards] = useState<Board[]>([]);
+    const [posts, setPosts] = useState<Post[]>([]);
     
     useEffect(() => {
-      dispatch(getBoardAsync())
+      dispatch(getPostAsync())
         .then((response:any) => {
             console.log(response);
             console.log(response.payload);
-            setBoards(response.payload?.reverse());
+            setPosts(response.payload?.reverse());
         })
         .catch((reason) => {
             alert(reason);
         });
     }, []);
   
-    const onClickBoard = (id: string) => {
-        router.push("board/detail?id="+id);
+    const onClickPost = (id: string) => {
+        router.push("post/detail?id="+id);
     }
 
 
     return (
         <div>
-            <Seo title="Board"/>
-            <h1>게시판 ({boards?.length})</h1> 
-            {boards?.length &&
+            <Seo title="Post"/>
+            <h1>게시판 ({posts?.length})</h1> 
+            {posts?.length &&
                 <table>
                     <tbody>
                     <tr>
@@ -41,9 +41,9 @@ export default function BoardList() {
                         <th>작성일</th>
                         <th>수정일</th>
                     </tr>
-                    {boards.map((item, index) => 
-                        <tr key={item._id} onClick={() => onClickBoard(item._id)}>
-                            <td>{boards.length-index}</td>
+                    {posts.map((item, index) => 
+                        <tr key={item._id} onClick={() => onClickPost(item._id)}>
+                            <td>{posts.length-index}</td>
                             <td>{item.title}</td>
                             <td>{item.author}</td>
                             <td>{item.createdAt}</td>
@@ -53,7 +53,7 @@ export default function BoardList() {
                     </tbody>
                 </table>
             }
-            {!(boards?.length) &&
+            {!(posts?.length) &&
                 <table>
                     <tbody>
                     <tr>
@@ -70,7 +70,7 @@ export default function BoardList() {
                 </table>
             }
             <br/>
-            <Link href="/board/form">
+            <Link href="/post/form">
                 <button>등록</button>
             </Link>
         </div>

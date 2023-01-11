@@ -1,12 +1,12 @@
 import Auth from './modules/auth';
-import Board from './modules/board';
+import Post from './modules/post';
 import { configureStore } from '@reduxjs/toolkit';
 
 // store: 컴포넌트들의 state들을 관리.
 const store = configureStore({
     reducer : {
         Auth,
-        Board,
+        Post,
     },
 })
 

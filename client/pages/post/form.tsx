@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import Seo from "../../components/Seo";
 import { useAppDispatch } from "../../redux/hooks";
-import { Board, createBoardAsync, initialBoard } from "../../redux/modules/board";
+import { Post, createPostAsync, initialPost } from "../../redux/modules/post";
 
-const BoardForm = () => {
+const PostForm = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
-    const [board, setBoard] = useState<{title:string,author:string,body:string}>({
+    const [post, setPost] = useState<{title:string,author:string,body:string}>({
         title:"",
         author:"",
         body:"",
@@ -17,8 +17,8 @@ const BoardForm = () => {
     const handleChange = ( e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement> ) => {
         const { name, value } = e.target;
 
-        setBoard({
-            ...board,
+        setPost({
+            ...post,
             [name]: value,
         })
     }
@@ -26,10 +26,10 @@ const BoardForm = () => {
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
-        dispatch(createBoardAsync(board))
+        dispatch(createPostAsync(post))
         .then((response) => {
             console.log(response);
-            router.push("/board");
+            router.push("/post");
         })
         .catch((reason) => {
             console.log(reason);
@@ -39,7 +39,7 @@ const BoardForm = () => {
 
     return (
         <div>
-            <Seo title="Board"/>
+            <Seo title="Post"/>
             <form onSubmit={handleSubmit}>
                 <input type="text" name="title" required placeholder="title" onChange={handleChange}/>
                 <input type="text" name="author" required placeholder="author" onChange={handleChange}/>
@@ -50,7 +50,7 @@ const BoardForm = () => {
     )
 }
 
-export default BoardForm;
+export default PostForm;
 // export async function getStaticPaths() {
     // let musicians = fetchMusicians();
     // let paths = musicians.map(musician => {
@@ -73,7 +73,7 @@ export default BoardForm;
 
 // return {
 //     props: {
-//     board:{}
+//     post:{}
 //     }
 // }
 // }

@@ -37,18 +37,18 @@ export default function Nav() {
             {/* </LeftMenuArccordion> */}
             <LeftMenuArccordion summary="DarkNDarker" id="DarkNDarker" isExpanded={true}>
                 <List>
-                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Post" href="/post"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Post" href="/post"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Post" href="/post"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Post" href="/post"icon={<Assignment/>}></LeftMenuItem>
                 </List>
             </LeftMenuArccordion>
             <LeftMenuArccordion summary="RimWorld" id="RimWorld" isExpanded={false}>
                 <List>
-                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Post" href="/post"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Post" href="/post"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Post" href="/post"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Post" href="/post"icon={<Assignment/>}></LeftMenuItem>
                 </List>
             </LeftMenuArccordion>
             

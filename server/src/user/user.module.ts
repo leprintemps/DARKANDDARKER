@@ -1,4 +1,4 @@
-import { User, UserSchema } from './schema/user.schema';
+import { User, UserSchema } from '../schema/user.schema';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { Module } from "@nestjs/common";

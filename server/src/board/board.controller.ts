@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { Public } from 'src/common/decorators';
-import { BoardService } from './board.service';
-import { CreateBoardDto, UpdateBoardDto } from './dto/board.dto';
-import { Board } from './schema/board.schema';
+import { PostService } from './post.service';
+import { CreatePostDto, UpdatePostDto } from './dto/post.dto';
+import { Post } from '../schema/post.schema';
 
 /***
  * Controller
@@ -10,52 +10,52 @@ import { Board } from './schema/board.schema';
  * url가져오고 함수 실행
  */
 
-@Controller('board')
-export class BoardController {
+@Controller('post')
+export class PostController {
 
-    constructor(private readonly boardService: BoardService){}
+    constructor(private readonly postService: PostService){}
     
     @Public()
     @Get()
-    async getAll(): Promise<Board[]>{
-        const Boards = this.boardService.getAll();
-        return Boards;
+    async getAll(): Promise<Post[]>{
+        const Posts = this.postService.getAll();
+        return Posts;
     }
 
     @Public()
     @Get("Search")
     async search(@Query("title") title: string ){
-        return `board search : ${title}`
+        return `post search : ${title}`
     }
 
     @Public()
     @Get("/:id")
-    async etOne(@Param('id') id: string): Promise<Board> {
-        return this.boardService.getOne(id);
+    async etOne(@Param('id') id: string): Promise<Post> {
+        return this.postService.getOne(id);
     }
 
     @Public()
     @Post()
-    async create(@Body() boardData: CreateBoardDto): Promise<Board>{
-        return this.boardService.create(boardData);
+    async create(@Body() postData: CreatePostDto): Promise<Post>{
+        return this.postService.create(postData);
     }
     
     @Public()
     @Delete("/:id")
-    async remove(@Param('id') boardId: string) {
-        return this.boardService.deleteOne(boardId); 
+    async remove(@Param('id') postId: string) {
+        return this.postService.deleteOne(postId); 
     }
 
     @Public()
     @Put('/:id')
-    async put(@Param('id') boardId: string) {
-        return `put board : ${boardId}`; 
+    async put(@Param('id') postId: string) {
+        return `put post : ${postId}`; 
     }
 
     @Public()
     @Patch('/:id')
-    async patch(@Param('id') boardId: string, @Body() updateData: UpdateBoardDto): Promise<Board> {
-        return this.boardService.update(boardId, updateData);
+    async patch(@Param('id') postId: string, @Body() updateData: UpdatePostDto): Promise<Post> {
+        return this.postService.update(postId, updateData);
         
     }
     

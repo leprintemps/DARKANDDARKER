@@ -2,49 +2,49 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { Model } from 'mongoose';
-import { CreateBoardDto, UpdateBoardDto } from './dto/board.dto';
-import { Board, BoardDocument } from './schema/board.schema';
+import { CreatePostDto, UpdatePostDto } from './dto/post.dto';
+import { Post, PostDocument } from '../schema/post.schema';
 
 @Injectable()
-export class BoardService {
-    constructor(@InjectModel(Board.name) private boardModel: Model<BoardDocument>) {}
+export class PostService {
+    constructor(@InjectModel(Post.name) private postModel: Model<PostDocument>) {}
     
-    async getAll(): Promise<Board[]> {
-        return await this.boardModel.find().exec();
+    async getAll(): Promise<Post[]> {
+        return await this.postModel.find().exec();
     }
     
-    search(title: string): Promise<Board[]> {
+    search(title: string): Promise<Post[]> {
         throw new Error('Method not implemented.');
     }
-    async getOne(id:string): Promise<Board> {
-        const board = await this.boardModel.findOne({ _id: id }).exec();
-        if(!board){
-            throw new NotFoundException(`Board ID : ${id} not found.`);
+    async getOne(id:string): Promise<Post> {
+        const post = await this.postModel.findOne({ _id: id }).exec();
+        if(!post){
+            throw new NotFoundException(`Post ID : ${id} not found.`);
         }
-        return board;
+        return post;
     }
     async deleteOne(id:string){
-        const board = await this.boardModel.exists({_id:id}).exec();
-        if(!board){
-            throw new NotFoundException(`Board ID : ${id} not found.`);
+        const post = await this.postModel.exists({_id:id}).exec();
+        if(!post){
+            throw new NotFoundException(`Post ID : ${id} not found.`);
         }
-        const deletedBoard = await this.boardModel
+        const deletedPost = await this.postModel
             .findByIdAndRemove({ _id: id })
             .exec();
-        return deletedBoard;
+        return deletedPost;
     }
-    async create(boardData: CreateBoardDto): Promise<Board> {
-        const createdBoard = await this.boardModel.create(boardData);
-        return createdBoard;
+    async create(postData: CreatePostDto): Promise<Post> {
+        const createdPost = await this.postModel.create(postData);
+        return createdPost;
     }
 
-    async update(id:string, updateData: UpdateBoardDto): Promise<Board> {
-        const board = await this.boardModel.exists({ _id: id }).exec();
-        if(!board){
-            throw new NotFoundException(`Board ID : ${id} not found.`);
+    async update(id:string, updateData: UpdatePostDto): Promise<Post> {
+        const post = await this.postModel.exists({ _id: id }).exec();
+        if(!post){
+            throw new NotFoundException(`Post ID : ${id} not found.`);
         }
-        const updateBoard = await this.boardModel.findByIdAndUpdate(id, updateData);
-        return updateBoard;
+        const updatePost = await this.postModel.findByIdAndUpdate(id, updateData);
+        return updatePost;
 
     }
 }

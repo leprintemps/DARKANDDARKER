@@ -6,12 +6,12 @@ import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { BoardModule } from './board/board.module';
+import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
-  imports: [BoardModule, 
+  imports: [PostModule, 
     UserModule,
     AuthModule,
     ConfigModule.forRoot({

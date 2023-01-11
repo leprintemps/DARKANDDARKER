@@ -1,17 +1,17 @@
 import { request} from "../../lib/axios/interceptor";
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export interface Board {
+export interface Post {
     _id: string,
     createdAt: string,
     updatedAt: string,
     title: string,
     author: string,
     body: string,
-    comments: Board[],
+    comments: Post[],
 }
 
-export const initialBoard: Board = {
+export const initialPost: Post = {
     _id: '',
     createdAt: '',
     updatedAt: '',
@@ -21,62 +21,62 @@ export const initialBoard: Board = {
     comments: [],
 }
 
-const boardSlice = createSlice({
-    name: "board",
-    initialState: initialBoard,
+const postSlice = createSlice({
+    name: "post",
+    initialState: initialPost,
     reducers: {
-        getBoardInfo: (state) => {
+        getPostInfo: (state) => {
             state;
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getBoardAsync.fulfilled, (state, action) => {
-            console.log("getBoard Success");
+        builder.addCase(getPostAsync.fulfilled, (state, action) => {
+            console.log("getPost Success");
         });
-        builder.addCase(getBoardAsync.rejected, (state, action) => {
+        builder.addCase(getPostAsync.rejected, (state, action) => {
             console.log("개같이 실패");
         });
-        builder.addCase(editBoardAsync.rejected, (state, action) => {
+        builder.addCase(editPostAsync.rejected, (state, action) => {
             console.log("개같이 실패");
         });
     },
 });
 
 
-export const getBoardAsync = createAsyncThunk("BOARD_GET", async() : Promise<Board[]> => {
-    const response = await request.get(`/board`);
+export const getPostAsync = createAsyncThunk("BOARD_GET", async() : Promise<Post[]> => {
+    const response = await request.get(`/post`);
     console.log(response)
     return response.data;
 })
 
-export const detailBoardAsync = createAsyncThunk("BOARD_DETAIL", async(id : string) : Promise<Board> => {
-    const response = await request.get(`/board/${id}`);
+export const detailPostAsync = createAsyncThunk("BOARD_DETAIL", async(id : string) : Promise<Post> => {
+    const response = await request.get(`/post/${id}`);
     return response.data;
 })
 
-export const createBoardAsync = createAsyncThunk("BOARD_CREATE", async(Board : {title:string,author:string,body:string}) : Promise<Board> => {
-    const response = await request.post(`/board`, Board);
+export const createPostAsync = createAsyncThunk("BOARD_CREATE", async(Post : {title:string,author:string,body:string}) : Promise<Post> => {
+    const response = await request.post(`/post`, Post);
     return response.data;
 })
 
-export const editBoardAsync = createAsyncThunk("BOARD_EDIT", async(Board : {_id:string,title:string,author:string,body:string}) : Promise<Board> => {
-    const boardBody = {
-        title: Board.title,
-        author: Board.author,
-        body: Board.body,
+export const editPostAsync = createAsyncThunk("BOARD_EDIT", async(Post : {_id:string,title:string,author:string,body:string}) : Promise<Post> => {
+    const postBody = {
+        title: Post.title,
+        author: Post.author,
+        body: Post.body,
     };
-    const response = await request.patch(`/board/${Board._id}`, boardBody);
+    const response = await request.patch(`/post/${Post._id}`, postBody);
     return response.data;
 })
 
-export const deleteBoardAsync = createAsyncThunk("BOARD_EDIT", async(id : string) : Promise<Board> => {
-    const response = await request.delete(`/board/${id}`);
+export const deletePostAsync = createAsyncThunk("BOARD_EDIT", async(id : string) : Promise<Post> => {
+    const response = await request.delete(`/post/${id}`);
     return response.data;
 })
 
 
-// export const getBoardInfo = (state: RootState) => state.user;
+// export const getPostInfo = (state: RootState) => state.user;
 
-export const { getBoardInfo } = boardSlice.actions;
+export const { getPostInfo } = postSlice.actions;
 
-export default boardSlice.reducer;
+export default postSlice.reducer;
