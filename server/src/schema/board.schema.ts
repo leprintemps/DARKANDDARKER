@@ -1,11 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { Blog } from './blog.schema';
+import { Post } from './post.schema';
 
 export interface boardField {
   title: string,
   description: string,
-  posts: post[]
+  post: Post[],
   createAt: Date,
   updateAt: Date,
 }
@@ -21,8 +21,8 @@ export class Board implements boardField{
   @Prop({ type: String, required: true, maxlength: 30 })
   description: string;
   
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Blog' })
-  blog: Blog;
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }] })
+  post: Post[];
 
   @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
   createAt: Date;
