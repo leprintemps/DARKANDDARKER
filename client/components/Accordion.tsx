@@ -44,55 +44,49 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
-export default function AccordionList() {
-  const [expanded, setExpanded] = React.useState<string | false>('panel1');
 
+export default function ArccordionList(props: {summary: string; id: string; isExpanded: boolean; children: React.ReactNode; } ): JSX.Element {
+  const [expanded, setExpanded] = React.useState<string | false>(props.id);
+  const [isExpanded, setIsExpanded] = React.useState<boolean>(props.isExpanded);
+  
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
+      setIsExpanded(!isExpanded);
     };
 
-  return (
+  return( 
     <div>
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>Collapsible Group Item #1</Typography>
+      <Accordion expanded={(expanded === props.id) && isExpanded} onChange={handleChange(props.id)}>
+        <AccordionSummary aria-controls={`${props.id}d-content`} id={`${props.id}d-header`}>
+          <Typography>{props.summary}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Collapsible Group Item #2</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Collapsible Group Item #3</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+          {props.children}
         </AccordionDetails>
       </Accordion>
     </div>
   );
 }
+// export default function ARCCORDIONLIST(PROPS: {SUMMARY: STRING; ID: STRING; ISEXPANDED: BOOLEAN; CHILDREN: REACT.REACTNODE; } ): JSX.ELEMENT {
+//   CONST [EXPANDED, SETEXPANDED] = REACT.USESTATE<STRING | FALSE>(PROPS.ID);
+  
+//   CONST HANDLECHANGE =
+//     (PANEL: STRING) => (EVENT: REACT.SYNTHETICEVENT, NEWEXPANDED: BOOLEAN) => {
+//       SETEXPANDED(NEWEXPANDED ? PANEL : FALSE);
+//     };
+
+//   RETURN( 
+//     <DIV>
+//       <ACCORDION EXPANDED={(EXPANDED === PROPS.ID) && PROPS.ISEXPANDED} ONCHANGE={HANDLECHANGE(PROPS.ID)}>
+//         <ACCORDIONSUMMARY ARIA-CONTROLS={`${PROPS.ID}D-CONTENT`} ID={`${PROPS.ID}D-HEADER`}>
+//           <TYPOGRAPHY>{PROPS.SUMMARY}</TYPOGRAPHY>
+//         </ACCORDIONSUMMARY>
+//         <ACCORDIONDETAILS>
+//           {PROPS.CHILDREN}
+//         </ACCORDIONDETAILS>
+//       </ACCORDION>
+//     </DIV>
+//   );
+// }
+

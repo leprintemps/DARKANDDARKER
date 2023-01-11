@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionList from "./Accordion";
+import LeftMenuArccordion from "./Accordion";
 
 
 
@@ -19,21 +21,12 @@ export default function Nav() {
     return (
         <div>
             <Toolbar >
-                <Typography variant="h6" noWrap component={Link} href="/">
-                    영래 세상
+                <Typography variant="h6" component="div">
+                    YoungNYounger
                 </Typography>
             </Toolbar>
             <Divider />
-
-            <Accordion>
-                <AccordionSummary
-                expandIcon={<ExpandMore />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-                >
-                <Typography>User</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
+            {/* <LeftMenuArccordion summary="User" id="User"> */}
                 <List>
                     <LeftMenuItem text="Home" href="/" icon={<Home/>}></LeftMenuItem>
                     <LeftMenuItem text="Join" href="/join" icon={<QuestionMark/>}></LeftMenuItem>
@@ -41,68 +34,23 @@ export default function Nav() {
                     <LeftMenuItem text="Logout" href="/logout" icon={<Logout/>}></LeftMenuItem>
                     <LeftMenuItem text="Profile" href="/profile" icon={<AccountBox/>}></LeftMenuItem>
                 </List>
-            {/* <Divider />  */}
-                </AccordionDetails>
-            </Accordion>
-            <Accordion>
-                <AccordionSummary
-                expandIcon={<ExpandMore />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-                >
-                <Typography>DarkNDarker</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <List>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                    </List>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion>
-                <AccordionSummary
-                expandIcon={<ExpandMore />}
-                aria-controls="panel2a-content"
-                id="panel2a-header"
-                >
-                <Typography>RimWorld</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <List>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                        <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
-                    </List>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion disabled>
-                <AccordionSummary
-                expandIcon={<ExpandMore />}
-                aria-controls="panel3a-content"
-                id="panel3a-header"
-                >
-                <Typography>Disabled Accordion</Typography>
-                </AccordionSummary>
-            </Accordion>
+            {/* </LeftMenuArccordion> */}
+            <LeftMenuArccordion summary="DarkNDarker" id="DarkNDarker" isExpanded={true}>
+                <List>
+                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
+                </List>
+            </LeftMenuArccordion>
+            <LeftMenuArccordion summary="RimWorld" id="RimWorld" isExpanded={false}>
+                <List>
+                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
+                    <LeftMenuItem text="Board" href="/board"icon={<Assignment/>}></LeftMenuItem>
+                </List>
+            </LeftMenuArccordion>
             
         </div>
     )

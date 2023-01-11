@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { request} from "../../lib/axios/interceptor";
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export interface Board {
@@ -44,17 +44,18 @@ const boardSlice = createSlice({
 
 
 export const getBoardAsync = createAsyncThunk("BOARD_GET", async() : Promise<Board[]> => {
-    const response = await axios.get(`/api/board`);
+    const response = await request.get(`/board`);
+    console.log(response)
     return response.data;
 })
 
 export const detailBoardAsync = createAsyncThunk("BOARD_DETAIL", async(id : string) : Promise<Board> => {
-    const response = await axios.get(`/api/board/${id}`);
+    const response = await request.get(`/board/${id}`);
     return response.data;
 })
 
 export const createBoardAsync = createAsyncThunk("BOARD_CREATE", async(Board : {title:string,author:string,body:string}) : Promise<Board> => {
-    const response = await axios.post(`/api/board`, Board);
+    const response = await request.post(`/board`, Board);
     return response.data;
 })
 
@@ -64,12 +65,12 @@ export const editBoardAsync = createAsyncThunk("BOARD_EDIT", async(Board : {_id:
         author: Board.author,
         body: Board.body,
     };
-    const response = await axios.patch(`/api/board/${Board._id}`, boardBody);
+    const response = await request.patch(`/board/${Board._id}`, boardBody);
     return response.data;
 })
 
 export const deleteBoardAsync = createAsyncThunk("BOARD_EDIT", async(id : string) : Promise<Board> => {
-    const response = await axios.delete(`/api/board/${id}`);
+    const response = await request.delete(`/board/${id}`);
     return response.data;
 })
 

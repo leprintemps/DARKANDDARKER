@@ -15,7 +15,7 @@ export default function BoardList() {
         .then((response:any) => {
             console.log(response);
             console.log(response.payload);
-            setBoards(response.payload.reverse());
+            setBoards(response.payload?.reverse());
         })
         .catch((reason) => {
             alert(reason);
@@ -30,27 +30,45 @@ export default function BoardList() {
     return (
         <div>
             <Seo title="Board"/>
-            <h1>게시판 ({boards.length})</h1> 
-            <table>
-                <tbody>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>저자</th>
-                    <th>작성일</th>
-                    <th>수정일</th>
-                </tr>
-                {boards.map((item, index) => 
-                    <tr key={item._id} onClick={() => onClickBoard(item._id)}>
-                        <td>{boards.length-index}</td>
-                        <td>{item.title}</td>
-                        <td>{item.author}</td>
-                        <td>{item.createdAt}</td>
-                        <td>{item.updatedAt}</td>
+            <h1>게시판 ({boards?.length})</h1> 
+            {boards?.length &&
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>저자</th>
+                        <th>작성일</th>
+                        <th>수정일</th>
                     </tr>
-                )}
-                </tbody>
-            </table>
+                    {boards.map((item, index) => 
+                        <tr key={item._id} onClick={() => onClickBoard(item._id)}>
+                            <td>{boards.length-index}</td>
+                            <td>{item.title}</td>
+                            <td>{item.author}</td>
+                            <td>{item.createdAt}</td>
+                            <td>{item.updatedAt}</td>
+                        </tr>
+                    )}
+                    </tbody>
+                </table>
+            }
+            {!(boards?.length) &&
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>저자</th>
+                        <th>작성일</th>
+                        <th>수정일</th>
+                    </tr>
+                    <tr>
+                        <td colSpan={5}>없음</td>
+                    </tr>
+                    </tbody>
+                </table>
+            }
             <br/>
             <Link href="/board/form">
                 <button>등록</button>
