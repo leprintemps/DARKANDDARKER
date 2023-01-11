@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Seo from "../components/Seo";
-import { useAppDispatch } from "../redux/hooks";
-import { authLocalSigninAsync, userDto } from "../redux/modules/auth";
+import { useAppDispatch } from "../config/redux/hooks";
+import { authLocalSigninAsync, userDto } from "../requests/auth/authSlice";
 
 export default function Login() {
 

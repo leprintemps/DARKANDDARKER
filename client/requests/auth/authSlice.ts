@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { request} from "../../lib/axios/interceptor";
+import { request} from "../../config/axios/interceptor";
 
 export interface userDto {
     username: string;

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Seo from "../../components/Seo";
 import { useAppDispatch } from "../../redux/hooks";
-import { Post, getPostAsync } from "../../redux/modules/post";
+import { Post, getPostAsync } from "../../requests/post/postSlice";
 
 export default function PostList() {
     const dispatch = useAppDispatch();

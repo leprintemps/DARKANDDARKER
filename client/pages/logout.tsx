@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import Seo from "../components/Seo";
-import { useAppDispatch } from "../redux/hooks";
-import { authLogoutAsync } from "../redux/modules/auth";
+import { useAppDispatch } from "../config/redux/hooks";
+import { authLogoutAsync } from "../requests/auth/authSlice";
 
 export default function Logout() {
 

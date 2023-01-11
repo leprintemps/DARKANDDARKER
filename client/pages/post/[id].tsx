@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import Seo from "../../components/Seo";
 import { useAppDispatch } from "../../redux/hooks";
-import { Post, detailPostAsync, initialPost } from "../../redux/modules/post";
+import { Post, detailPostAsync, initialPost } from "../../requests/post/postSlice";
 
 interface PostPostProps {
     post: Post

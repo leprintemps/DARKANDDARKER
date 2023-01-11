@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { logoutUser } from '../../redux/modules/auth';
+import { logoutUser } from '../../requests/auth/authSlice';
 
 /* 
     인터셉터는 1.요청하기 직전, 2. 응답을 받고 then, catch로 처리 직전에 가로챌 수 있습니다.

@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Theme, ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
-import store from "../redux/configStore";
+import store from "../config/redux/configStore";
 import theme from "../modules/theme";
 import { createTheme, useMediaQuery } from "@mui/material";
 import React from "react";

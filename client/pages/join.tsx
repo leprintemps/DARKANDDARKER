@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Seo from "../components/Seo";
-import { useAppDispatch } from "../redux/hooks";
-import { authLocalSignupAsync, userDto } from "../redux/modules/auth";
+import { useAppDispatch } from "../config/redux/hooks";
+import { authLocalSignupAsync, userDto } from "../requests/auth/authSlice";
 import { useRouter } from "next/router";
 
 type JoinProps = {

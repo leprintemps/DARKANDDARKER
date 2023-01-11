@@ -1,5 +1,5 @@
-import Auth from './modules/auth';
-import Post from './modules/post';
+import Auth from '../../requests/auth/authSlice';
+import Post from '../../requests/post/postSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
 // store: 컴포넌트들의 state들을 관리.

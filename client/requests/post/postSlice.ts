@@ -1,4 +1,4 @@
-import { request} from "../../lib/axios/interceptor";
+import { request} from "../../config/axios/interceptor";
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export interface Post {

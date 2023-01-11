@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import Seo from "../../components/Seo";
 import { useAppDispatch } from "../../redux/hooks";
-import { Post, createPostAsync, detailPostAsync, editPostAsync, initialPost } from "../../redux/modules/post";
+import { Post, createPostAsync, detailPostAsync, editPostAsync, initialPost } from "../../requests/post/postSlice";
 
 const PostForm = () => {
     const dispatch = useAppDispatch();
