@@ -1,4 +1,4 @@
-import { RefreshTokenException } from './../../exceptions/index';
+import { RefreshTokenException } from '../../config/exceptions/index';
 import { ExecutionContext } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';

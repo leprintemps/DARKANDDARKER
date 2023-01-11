@@ -1,9 +1,9 @@
-import { ProcessResult } from './../common/types/result';
-import { RtGuard } from './../common/guards/rt.guard';
-import { AuthDto } from './dto/auth.dto';
+import { ProcessResult } from '../../types/result';
+import { RtGuard } from '../../common/guards/rt.guard';
+import { AuthDto } from '../../dto/auth.dto';
 import { AuthService } from './auth.service';
 import { Body, Controller, Post, Req, Res, UseGuards } from "@nestjs/common";
-import { GetCurrentRt, GetCurrentUserId, Public } from '../common/decorators';
+import { GetCurrentRt, GetCurrentUserId, Public } from '../../common/decorators';
 import { Response } from 'express';
 
 @Controller("auth")

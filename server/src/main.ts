@@ -1,5 +1,5 @@
-import { TokenExceptionFilter } from './filter/token.exception.filter';
-import { HttpExceptionFilter } from './filter/http.exception.filter';
+import { TokenExceptionFilter } from './config/filter/token.exception.filter';
+import { HttpExceptionFilter } from './config/filter/http.exception.filter';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';

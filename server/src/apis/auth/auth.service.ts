@@ -1,11 +1,11 @@
 import { JwtService } from '@nestjs/jwt';
-import { AuthDto } from './dto/auth.dto';
-import { User, UserDocument } from '../schema/user.schema';
+import { AuthDto } from '../../dto/auth.dto';
+import { User, UserDocument } from '../../schema/user.schema';
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from "bcrypt";
-import type { Tokens } from "./types/tokens.type";
+import type { Tokens } from "../../types/tokens.type";
 
 @Injectable()
 export class AuthService {

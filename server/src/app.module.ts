@@ -1,13 +1,13 @@
 import { AtGuard } from './common/guards/at.guard';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './apis/auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PostModule } from './modules/post/post.module';
-import { UserModule } from './modules/user/user.module';
+import { PostModule } from './apis/post/post.module';
+import { UserModule } from './apis/user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({

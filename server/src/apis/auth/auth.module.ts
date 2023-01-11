@@ -1,7 +1,7 @@
-import { User, UserSchema } from '../schema/user.schema';
+import { User, UserSchema } from '../../schema/user.schema';
 import { JwtModule } from '@nestjs/jwt';
-import { RtStrategy } from './strategies/rt.strategy';
-import { AtStrategy } from './strategies/at.strategy';
+import { RtStrategy } from '../../common/strategies/rt.strategy';
+import { AtStrategy } from '../../common/strategies/at.strategy';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { Module } from "@nestjs/common";

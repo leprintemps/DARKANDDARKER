@@ -1,5 +1,5 @@
 import { HttpException, UnauthorizedException } from '@nestjs/common';
-import { AccessTokenException, RefreshTokenException } from './../exceptions/index';
+import { AccessTokenException, RefreshTokenException } from '../exceptions/index';
 import { ArgumentsHost } from '@nestjs/common';
 import { Catch, ExceptionFilter } from '@nestjs/common';
 import { Request, Response } from 'express';
