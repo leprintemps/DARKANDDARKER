@@ -3,31 +3,26 @@ import { userDto } from './authSlice';
 import { authLocalSignupAsync } from './authSlice';
 import { useAppDispatch } from "../../config/redux/hooks";
 
-// export function authLocalSigninDispatcher() {
-
-// }
-
-// export function authLogoutDispatcher() {
-
-// }
-
-// export function authLocalSignupDispatcher() {
-
-// }
-
 export class authDispatcher {
 
-    dispatch = useAppDispatch();
-    router = useRouter();
+    private dispatch;
+    private router;
+
+    constructor() {
+        this.dispatch = useAppDispatch();
+        this.router = useRouter();
+    }
     
     // 회원가입
-    authLocalSignupDispatcher = (user: userDto) => {
+    authLocalSignupDispatcher = (user: userDto, done: Function, error: Function) => {
         this.dispatch(authLocalSignupAsync(user))
         .then(() => {
-            this.router.push("/");
+            // this.router.push("/");
+            done
         })
         .catch((reason) => {
-            console.log(reason);
+            // console.log(reason);
+            error
         })
     }
 

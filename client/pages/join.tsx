@@ -3,7 +3,6 @@ import Seo from "../components/Seo";
 import { useAppDispatch } from "../config/redux/hooks";
 import { authLocalSignupAsync, userDto } from "../requests/auth/authSlice";
 import { useRouter } from "next/router";
-import { authDispatcher } from "../requests/auth/authDispatcher";
 
 type JoinProps = {
 }
@@ -40,7 +39,6 @@ const Join: React.FC<JoinProps> = ({}) => {
         .catch((reason) => {
             console.log(reason);
         })
-        // authDispatcher.authLocalSignupDispatcher
     }
 
     return (
