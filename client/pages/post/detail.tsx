@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Seo from "../../components/Seo";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch } from "../../config/redux/hooks";
 import { Post, deletePostAsync, detailPostAsync, initialPost } from "../../requests/post/postSlice";
 
 export default function PostDetail() {

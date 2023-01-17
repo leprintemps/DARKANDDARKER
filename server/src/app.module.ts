@@ -9,6 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PostModule } from './apis/post/post.module';
 import { UserModule } from './apis/user/user.module';
 import { APP_GUARD } from '@nestjs/core';
+import { CommentModule } from './apis/comment/comment.module';
 
 @Module({
   imports: [PostModule, 
@@ -41,6 +42,7 @@ import { APP_GUARD } from '@nestjs/core';
       }),
       inject: [ConfigService],
     }),
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [
