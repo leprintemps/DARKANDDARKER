@@ -4,24 +4,11 @@ import { Board } from './board.schema';
 import { Manager } from './manager.schema';
 import { User } from './user.schema';
 
-export interface blogField {
-  isPublic: boolean,
-  name: string,
-  description: string,
-  owner: User,
-  managers: Manager[],
-  boards: Board[],
-  createdAt: Date,
-  updatedAt: Date,
-  deletedAt: Date,
-}
-
 export type BlogDocument = HydratedDocument<Blog>;
 
 @Schema({ timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } })
-export class Blog implements blogField{
+export class Blog {
 
-  
   @Prop({ type: Boolean, required: true }) 
   isPublic: boolean;
   
@@ -38,12 +25,12 @@ export class Blog implements blogField{
   boards: Board[];
 
   @Prop({type:[{ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Manager' }]})
-  managers: Manager[];
+  manages: Manager[];
     
-  @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
+  @Prop({ type: mongoose.Schema.Types.Date })
   createdAt: Date;
 
-  @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
+  @Prop({ type: mongoose.Schema.Types.Date })
   updatedAt: Date;
 
   @Prop({ default: null, type: mongoose.Schema.Types.Date })

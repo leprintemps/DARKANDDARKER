@@ -1,17 +1,15 @@
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 import Seo from "../components/Seo";
 import { useAppDispatch } from "../config/redux/hooks";
-import { authLogoutAsync } from "../requests/auth/authSlice";
+import { userSignoutAsync } from "../requests/user/userSlice";
 
 export default function Logout() {
 
     const dispatch = useAppDispatch();
     const router = useRouter();
-    const auth = useSelector((state: any) => state.Auth);
 
     const handleLogout = () => {
-        dispatch(authLogoutAsync(auth._id))
+        dispatch(userSignoutAsync())
         .then(() => {
             router.push("/");
         })

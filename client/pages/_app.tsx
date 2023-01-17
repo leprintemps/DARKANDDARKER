@@ -3,10 +3,11 @@ import Layout from "../components/Layout";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Theme, ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
-import store from "../config/redux/configStore";
+import { store, persistor, wrapper } from "../config/redux/configStore";
 import theme from "../modules/theme";
 import { createTheme, useMediaQuery } from "@mui/material";
 import React from "react";
+import { PersistGate } from "redux-persist/integration/react";
 
 /*
     https://nextjs.org/docs/basic-features/typescript#custom-app
@@ -18,15 +19,20 @@ import React from "react";
 */
 
 export default function App({ Component, pageProps } : AppProps) {
+    const { store, props } = wrapper.useWrappedStore(pageProps);
+
     return (
-        <ThemeProvider theme={theme()}>
-            <CssBaseline />
-            <Provider store={store}>
-                <Layout>
-                    <Component { ...pageProps } />
-                </Layout>
-            </Provider>
-        </ThemeProvider>
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <ThemeProvider theme={theme()}>
+                    <CssBaseline />
+                    <Layout>
+                        <Component { ...pageProps } />
+                    </Layout>
+                </ThemeProvider>
+            </PersistGate>
+        </Provider>
     )
 } 
 
+// export default wrapper.withRedux(App);

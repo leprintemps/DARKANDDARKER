@@ -2,22 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Blog } from './blog.schema';
 
-
 export type UserDocument = HydratedDocument<User>;
-export interface userField {
-    username: string
-    password: string
-    name : string
-    email: string
-    location: string
-    hashedRt: string
-    blogs: Blog[];
-  
-}
 
-//타임스탬프
 @Schema()
-export class User implements userField {
+export class User {
 
     @Prop({ type: String, required: true, trim: true, maxlength: 30, unique: true })
     username: string

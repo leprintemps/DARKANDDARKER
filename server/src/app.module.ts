@@ -1,5 +1,7 @@
+import { ManagerModule } from './apis/manager/manager.module';
+import { BoardModule } from './apis/board/board.module';
+import { BlogModule } from './apis/blog/blog.module';
 import { AtGuard } from './common/guards/at.guard';
-import { AuthModule } from './apis/auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
@@ -13,7 +15,9 @@ import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [PostModule, 
     UserModule,
-    AuthModule,
+    BlogModule,
+    BoardModule,
+    ManagerModule,
     ConfigModule.forRoot({
     isGlobal: true,
       envFilePath:

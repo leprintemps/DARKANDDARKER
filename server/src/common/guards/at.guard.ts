@@ -1,4 +1,4 @@
-import { AccessTokenException } from '../../config/exceptions/index';
+import { AccessTokenException } from '../../config/exceptions/token.exceptions';
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';

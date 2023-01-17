@@ -2,14 +2,14 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Seo from "../components/Seo";
 import { useAppDispatch } from "../config/redux/hooks";
-import { authLocalSigninAsync, userDto } from "../requests/auth/authSlice";
+import { userSigninAsync } from "../requests/user/userSlice";
 
 export default function Login() {
 
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const [user, setUser] = useState<userDto> ({
+    const [user, setUser] = useState ({
         username: "",
         password: "",
         name: "",
@@ -29,7 +29,7 @@ export default function Login() {
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        dispatch(authLocalSigninAsync(user))
+        dispatch(userSigninAsync(user))
         .then(() => {
             router.push("/")
         })

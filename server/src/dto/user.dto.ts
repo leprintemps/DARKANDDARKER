@@ -22,6 +22,7 @@ export class CreateUserDto {
     @IsString()
     @IsOptional()
     readonly hashedRt: string;
+    
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto){};
