@@ -1,49 +1,37 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { Public } from 'src/common/decorators';
 import { PostService } from './post.service';
-import { CreatePostDto, UpdatePostDto } from '../../dto/post.dto';
+import { CreatePostDto, FindPostDto, UpdatePostDto } from '../../dto/post.dto';
 import { Post as Posts } from '../../schema/post.schema';
-
-/***
- * Controller
- * express의 라우터 같은 존재
- * url가져오고 함수 실행
- */
 
 @Controller('post')
 export class PostController {
 
     constructor(private readonly postService: PostService){}
     
-    @Public()
-    @Get()
-    async getAll(): Promise<Posts[]>{
-        const Posts = this.postService.getAll();
-        return Posts;
-    }
 
     @Public()
-    @Get("Search")
-    async search(@Query("title") title: string ){
-        return `post search : ${title}`
+    @Get()
+    async selectPostList(@Body() post: FindPostDto ): Promise<Posts[]>{
+        return this.postService.selectPostList(post);
     }
 
     @Public()
     @Get("/:id")
-    async etOne(@Param('id') id: string): Promise<Posts> {
-        return this.postService.getOne(id);
+    async selectPostDetail(@Param('id') id: string): Promise<Posts> {
+        return this.postService.selectPostDetail(id);
     }
 
     @Public()
     @Post()
-    async create(@Body() postData: CreatePostDto): Promise<Posts>{
-        return this.postService.create(postData);
+    async insertPost(@Body() postData: CreatePostDto): Promise<Posts>{
+        return this.postService.insertPost(postData);
     }
     
     @Public()
     @Delete("/:id")
-    async remove(@Param('id') postId: string) {
-        return this.postService.deleteOne(postId); 
+    async deletePost(@Param('id') postId: string) {
+        return this.postService.deletePost(postId); 
     }
 
     @Public()
@@ -55,8 +43,8 @@ export class PostController {
 
     @Public()
     @Patch('/:id')
-    async patch(@Param('id') postId: string, @Body() updateData: UpdatePostDto): Promise<Posts> {
-        return this.postService.update(postId, updateData);
+    async updatePost(@Param('id') postId: string, @Body() updateData: UpdatePostDto): Promise<Posts> {
+        return this.postService.updatePost(postId, updateData);
         
     }
     

@@ -29,10 +29,10 @@ export class Post implements postField{
   @Prop({type:[{ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]})
   comments: Comment[];
   
-  @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
+  @Prop({ type: mongoose.Schema.Types.Date })
   createdAt: Date;
 
-  @Prop({ default: new Date(), type: mongoose.Schema.Types.Date })
+  @Prop({ type: mongoose.Schema.Types.Date })
   updatedAt: Date;
 
   @Prop({ default: null, type: mongoose.Schema.Types.Date })

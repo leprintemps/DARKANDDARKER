@@ -13,10 +13,6 @@ export class CreateCommentDto{
 
     @IsObjectId()
     parent: mongoose.Schema.Types.ObjectId;
-    
-    createdAt: Date;
-    updatedAt: Date;
-    deletedAt: Date;
 }
 
 export class UpdateCommentDto extends PartialType(CreateCommentDto){}

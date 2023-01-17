@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import Seo from "../../components/Seo";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch } from "../../config/redux/hooks";
 import { Post, detailPostAsync, initialPost } from "../../requests/post/postSlice";
 
 interface PostPostProps {

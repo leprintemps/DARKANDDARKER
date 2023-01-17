@@ -23,10 +23,30 @@ export class CreatePostDto {
     @IsObjectId({each:true})
     @IsOptional()
     comments: CreateCommentDto[];
-    
-    createdAt: Date;
-    updatedAt: Date;
-    deletedAt: Date;
+
 }
 
 export class UpdatePostDto extends PartialType(CreatePostDto){}
+
+export class FindPostDto {
+
+    @IsString()
+    @IsOptional()
+    title: string;
+    @IsString()
+    @IsOptional()
+    body: string;
+    @IsString()
+    @IsOptional()
+    author: string;
+    @IsNumber()
+    @IsOptional()
+    page: number;
+    @IsNumber()
+    @IsOptional()
+    limit: number;
+    @IsString()
+    @IsOptional()
+    sort: string;
+
+}

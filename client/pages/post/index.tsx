@@ -1,15 +1,21 @@
+import { Pagination } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Seo from "../../components/Seo";
-import { useAppDispatch } from "../../redux/hooks";
-import { Post, getPostAsync } from "../../requests/post/postSlice";
+import { useAppDispatch } from "../../config/redux/hooks";
+import { getPostAsync, Post } from "../../requests/post/postSlice";
 
 export default function PostList() {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const [posts, setPosts] = useState<Post[]>([]);
-    
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(5);
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
     useEffect(() => {
       dispatch(getPostAsync())
         .then((response:any) => {
@@ -35,21 +41,22 @@ export default function PostList() {
                 <table>
                     <tbody>
                     <tr>
-                        <th>번호</th>
+                        <th>No.</th>
                         <th>제목</th>
                         <th>저자</th>
                         <th>작성일</th>
                         <th>수정일</th>
                     </tr>
-                    {posts.map((item, index) => 
-                        <tr key={item._id} onClick={() => onClickPost(item._id)}>
-                            <td>{posts.length-index}</td>
-                            <td>{item.title}</td>
-                            <td>{item.author}</td>
-                            <td>{item.createdAt}</td>
-                            <td>{item.updatedAt}</td>
+                    {posts?.slice(indexOfFirstItem, indexOfLastItem).map((post, index) => (
+                        <tr key={post._id} onClick={() => onClickPost(post._id)}>
+                            <td>{posts?.length - (itemsPerPage * (currentPage - 1)) - index}</td>
+                            <td>{post.title}</td>
+                            <td>{post.author}</td>
+                            <td>{new Date(post.createdAt).toLocaleString()}</td>
+                            <td>{new Date(post.updatedAt).toLocaleString()}</td>
+                            
                         </tr>
-                    )}
+                    ))}
                     </tbody>
                 </table>
             }
@@ -70,6 +77,11 @@ export default function PostList() {
                 </table>
             }
             <br/>
+            <Pagination
+            count={Math.ceil(posts.length / itemsPerPage)}
+            page={currentPage}
+            onChange={(event, page) => setCurrentPage(page)}
+            />
             <Link href="/post/form">
                 <button>등록</button>
             </Link>
