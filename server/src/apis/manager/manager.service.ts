@@ -18,7 +18,7 @@ export class ManagerService {
     // 관리자 생성
     async createManager(managerDto : CreateManagerDto) : Promise<any> {
         const createdManager = await this.managerModel.create({
-            ...CreateManagerDto,
+            ...managerDto,
         })
 
         return createdManager;

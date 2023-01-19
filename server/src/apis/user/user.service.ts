@@ -50,11 +50,12 @@ export class UserService {
         const tokens = await this._generateTokens(user._id.toString(), user.username);
         await this._updateRtHash(user._id.toString(), tokens.refresh_token);
 
-        user.password = "";
-        user.hashedRt = "";
-
         return {
-            ...user,
+            _id: user._id,
+            username: user.username,
+            name: user.name,
+            email: user.email,
+            location: user.location,
             access_token: tokens.access_token,
             refresh_token: tokens.refresh_token,
         };

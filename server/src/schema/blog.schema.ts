@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { object } from 'joi';
+import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
 import { Board } from './board.schema';
 import { Manager } from './manager.schema';
 import { User } from './user.schema';
@@ -24,8 +25,14 @@ export class Blog {
   @Prop({type:[{ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Board' }]})
   boards: Board[];
 
-  @Prop({type:[{ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Manager' }]})
-  manages: Manager[];
+  @Prop({ type: Object })
+  managers: { 
+    userId: ObjectId;
+    isEditable: boolean;
+    createAt: Date;
+    updateAt: Date;
+    deleteAt: Date;
+  }
     
   @Prop({ type: mongoose.Schema.Types.Date })
   createdAt: Date;

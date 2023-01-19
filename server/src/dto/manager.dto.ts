@@ -1,6 +1,6 @@
 import { CreateUserDto } from './user.dto';
 import { PartialType } from '@nestjs/mapped-types';
-import { IsBoolean } from 'class-validator';
+import { IsBoolean, IsOptional } from 'class-validator';
 import { IsObjectId } from '../common/decorators/is-object-id.decorator';
 
 export class CreateManagerDto {
@@ -10,12 +10,6 @@ export class CreateManagerDto {
 
     @IsBoolean()
     isEditable: boolean;
-
-    createdAt: Date;
-
-    updatedAt: Date;
-
-    deletedAt: Date;
 
 }
 
