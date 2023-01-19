@@ -49,10 +49,10 @@ export const getPostAsync = createAsyncThunk("POST_GET", async() : Promise<Post[
     return response.data;
 })
 
-export const detailPostAsync = createAsyncThunk("POST_DETAIL", async(id : string) : Promise<Post> => {
+export const detailPostAsync = async(id : string) : Promise<Post> => {
     const response = await request.get(`/post/${id}`);
     return response.data;
-})
+}
 
 export const createPostAsync = createAsyncThunk("POST_CREATE", async(Post : {title:string,author:string,body:string}) : Promise<Post> => {
     const response = await request.post(`/post`, Post);

@@ -3,7 +3,7 @@ import { persistReducer, persistStore, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, R
 import userSlice from "../../requests/user/userSlice";
 import postSlice from "../../requests/post/postSlice";
 import storage from 'redux-persist/lib/storage';
-import { MakeStore, createWrapper } from "next-redux-wrapper";
+import { MakeStore, createWrapper } from 'next-redux-wrapper';
 
 const reducers = combineReducers({
     user: userSlice,

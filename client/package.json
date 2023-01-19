@@ -31,10 +31,14 @@
     "react-cookie": "^4.1.1",
     "react-dom": "18.2.0",
     "react-native": "^0.71.0",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "typescript": "4.9.4"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:8080",
+  "devDependencies": {
+    "@types/quill": "^2.0.10"
+  }
 }

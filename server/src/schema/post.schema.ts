@@ -23,7 +23,7 @@ export class Post implements postField{
   @Prop({ type: String, required: true, trim: true })
   author: string;
   
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, trim: true })
   body: string;
   
   @Prop({type:[{ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]})

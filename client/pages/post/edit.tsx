@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import Seo from "../../components/Seo";
 import { useAppDispatch } from "../../config/redux/hooks";
-import { Post, createPostAsync, detailPostAsync, editPostAsync, initialPost } from "../../requests/post/postSlice";
+import { detailPostAsync, editPostAsync } from "../../requests/post/postSlice";
 
 const PostForm = () => {
     const dispatch = useAppDispatch();
@@ -18,17 +18,17 @@ const PostForm = () => {
     const id = router.query.id as string;
 
 
-    useEffect(() => {
-        if(!router.isReady) return;
-        dispatch(detailPostAsync(id))
-          .then((response:any) => {
-              console.log(response);
-              setPost(response.payload);
-          })
-          .catch((reason) => {
-              alert(reason);
-          });
-      }, [router.isReady]);
+    // useEffect(() => {
+    //     if(!router.isReady) return;
+    //     dispatch(detailPostAsync(id))
+    //       .then((response:any) => {
+    //           console.log(response);
+    //           setPost(response.payload);
+    //       })
+    //       .catch((reason) => {
+    //           alert(reason);
+    //       });
+    //   }, [router.isReady]);
 
     const handleChange = ( e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement> ) => {
         const { name, value } = e.target;
