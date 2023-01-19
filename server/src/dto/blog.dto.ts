@@ -7,6 +7,7 @@ import { IsObjectId } from '../common/decorators/is-object-id.decorator';
 
 export class CreateBlogDto {
 
+    @IsOptional()
     @IsObjectId()
     _id: string;
 
@@ -29,12 +30,6 @@ export class CreateBlogDto {
     @IsOptional()
     @IsObjectId({each:true})
     managers: CreateManagerDto[];
-    
-    createdAt: Date;
-
-    updatedAt: Date;
-    
-    deletedAt: Date;
 
 }
 
