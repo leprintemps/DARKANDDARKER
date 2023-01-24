@@ -9,14 +9,16 @@ import { selectTheme } from '../requests/theme/themeSlice';
 export const ThemeProviderWrapper = ({ children }: React.PropsWithChildren) => {
     const dispatch = useAppDispatch();
     
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     const theme = useSelector(selectTheme);
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     console.log(prefersDarkMode);
     React.useEffect(() => {
-        if(prefersDarkMode) {
-            dispatch(selectTheme('dark'))
-        } else {
-            dispatch(selectTheme('light'))
+        if(theme.payload.theme.theme === 'initial'){
+            if(prefersDarkMode) {
+                dispatch(selectTheme('dark'))
+            } else {
+                dispatch(selectTheme('light'))
+            }
         }
     }, []);
     
