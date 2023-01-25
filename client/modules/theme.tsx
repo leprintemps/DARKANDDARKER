@@ -1,15 +1,14 @@
 import * as React from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { createMuiTheme, createTheme, makeStyles, Theme, ThemeProvider } from '@mui/material/styles';
-import { useAppDispatch } from '../config/redux/hooks';
-import { useSelector } from 'react-redux';
+import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
+import { useAppDispatch, useAppSelect } from '../config/redux/hooks';
 import { selectTheme } from '../requests/theme/themeSlice';
 
 
 export const ThemeProviderWrapper = ({ children }: React.PropsWithChildren) => {
     const dispatch = useAppDispatch();
     
-    const theme = useSelector(selectTheme);
+    const theme = useAppSelect(selectTheme);
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
     console.log(prefersDarkMode);
     React.useEffect(() => {

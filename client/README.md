@@ -1,7 +1,7 @@
-nextjs 및 타입스크립트 같이 설치하기
+## nextjs 및 타입스크립트 같이 설치하기
 npx create-next-app --typescript
 
-react 와 nextjs 차이점
+## react 와 nextjs 차이점
 react는 고작 div하나에 자바스크립트 함수를 이용해서 화면을 그리기 때문에
 사용자 브라우저에서 자바스크립트를 실행시켜서 화면을 그린다.
 그러므로 매우 흔한일은 아니지만 자바스크립트를 실행시킬수 없는 환경일땐 아무것도 그리질 못한다. ( client-side render )

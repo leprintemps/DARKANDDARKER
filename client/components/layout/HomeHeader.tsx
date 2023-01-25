@@ -1,95 +1,95 @@
 // this home header is the header of the home page
-// it contains the logo at left side and the search bar ,the login/signup buttons, theme switcher at righside
+// it contains the logo and the search bar at left side the signin/signup buttons, theme switcher at rightside
+// the theme switcher is used to switch between light and dark theme
+// responsive design is used
 // mui components are used
+// in nextjs, in typescript
 
+
+import React from "react";
+import { AppBar, Box, Grid, Toolbar, Typography, InputBase, IconButton, Switch, useTheme, useMediaQuery, Button, Link, Stack } from "@mui/material";
+import { makeStyles } from "@mui/material/styles";
+import { Brightness1, Brightness7, Search } from "@mui/icons-material";
+// import Link from "next/link";
+import { useAppDispatch, useAppSelect } from "../../config/redux/hooks";
+import { selectTheme, toggleTheme } from "../../requests/theme/themeSlice";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import { useState } from "react";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { AppBar, Toolbar, IconButton, Button } from "@mui/material";
-import { Menu as MenuIcon } from "@mui/icons-material";
-import { Box } from "@mui/system";
-import { styled } from "@mui/material/styles";
-import { useAppSelect } from "../../config/redux/hooks";
-import { selectTheme } from "../../requests/theme/themeSlice";
-import { Theme } from "@mui/material/styles";
-import { useAppDispatch } from "../../config/redux/hooks";
-import { toggleTheme } from "../../requests/theme/themeSlice";
-import { logoutUser } from "../../requests/user/userSlice";
-import { Brightness4 } from "@mui/icons-material";
-import { Brightness7 } from "@mui/icons-material";
 
-const HomeHeader = () => {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+
+
+
+
+interface HeaderProps {
+  sections: ReadonlyArray<{
+    title: string;
+    url: string;
+  }>;
+  title: string;
+}
+
+export default function Header(props: HeaderProps) {
+  const { sections, title } = props;
   const theme = useAppSelect(selectTheme);
-
-  const handleLogout = () => {
-    dispatch(logoutUser());
-    router.push("/");
-  };
-
-  const handleThemeChange = () => {
-    dispatch(toggleTheme());
-  };
+  const dispatch = useAppDispatch();
 
   return (
-    <AppBar position="static">
-        <Toolbar>
-            <IconButton
+    <React.Fragment>
+      <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Typography
+          component="h2"
+          variant="h5"
+          color="inherit"
+          align="center"
+          noWrap
+          sx={{ flex: 1 }}
+        >
+          {title}
+        </Typography>
+        <InputBase
+          placeholder="Search…"
+          inputProps={{ 'aria-label': 'search' }}
+        />
+        <IconButton>
+          <Search />
+        </IconButton>
 
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Link href="/" passHref>
-                <Button color="inherit">Home</Button>
-            </Link>
-            <Link href="/about" passHref>
-                <Button color="inherit">About</Button>
-            </Link>
-            <Link href="/contact" passHref>
-                <Button color="inherit">Contact</Button>
-            </Link>
-            <Link href="/posts" passHref>
-                <Button color="inherit">Posts</Button>
-            </Link>
-            <Link href="/users" passHref>
-                <Button color="inherit">Users</Button>
-            </Link>
-            <Box sx={{ flexGrow: 1 }} />
-            <Link href="/login" passHref>
-                <Button color="inherit">Login</Button>
-            </Link>
-            <Link href="/signup" passHref>
-                <Button color="inherit">Signup</Button>
-            </Link>
-            <IconButton
+        <Stack direction="row" spacing={2}>
+          <Button variant="outlined" size="small" href="/signin">
+            Sign in
+          </Button>
+          <Button variant="outlined" size="small" href="/signup">
+            Sign up
+          </Button>
+        </Stack>
+        <IconButton
+          aria-label="toggle theme"
+          onClick={() => dispatch(toggleTheme())}
+        >
+          {theme.payload.theme === "light" ? <Brightness1 /> : <Brightness7 />}
+        </IconButton>
 
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-                onClick={handleThemeChange}
-            >
-                {theme.payload.theme.theme === "light" ? <Brightness4 /> : <Brightness7 />}
-            </IconButton>
-            {/* {user && (
-                <Button color="inherit" onClick={handleLogout}>
-                    Logout
-                </Button>
-            )} */}
-        </Toolbar>
-    </AppBar>
 
-    );
-};
 
-export default HomeHeader;
+      </Toolbar>
+      <Toolbar
+        component="nav"
+        variant="dense"
+        sx={{ justifyContent: 'space-between', overflowX: 'auto' }}
+      >
+        {sections.map((section) => (
+          <Link
+            color="inherit"
+            noWrap
 
+            key={section.title}
+            variant="body2"
+            href={section.url}
+            sx={{ p: 1, flexShrink: 0 }}
+          >
+            {section.title}
+          </Link>
+        ))}
+      </Toolbar>
+    </React.Fragment>
+  );
+}
