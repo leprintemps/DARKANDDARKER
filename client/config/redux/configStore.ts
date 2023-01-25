@@ -4,17 +4,19 @@ import userSlice from "../../requests/user/userSlice";
 import postSlice from "../../requests/post/postSlice";
 import storage from 'redux-persist/lib/storage';
 import { MakeStore, createWrapper } from 'next-redux-wrapper';
+import themeSlice from '../../requests/theme/themeSlice';
 
 const reducers = combineReducers({
     user: userSlice,
     post: postSlice,
+    theme: themeSlice,
 })
 
 const persistConfig = {
     key: "root",
     storage,
     devTools: true,
-    whitelist: ["user"],
+    whitelist: ["user", "theme"],
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);
