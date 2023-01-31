@@ -11,9 +11,10 @@ import { AppBar, Box, Grid, Toolbar, Typography, InputBase, IconButton, Switch, 
 import { makeStyles } from "@mui/material/styles";
 import { Brightness1, Brightness7, Search } from "@mui/icons-material";
 // import Link from "next/link";
-import { useAppDispatch, useAppSelect } from "../../config/redux/hooks";
-import { selectTheme, toggleTheme } from "../../requests/theme/themeSlice";
 import { useRouter } from "next/router";
+import { useThemeQuery } from "../../querys/themeQuery";
+import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
+import { getTheme, toggleTheme } from "../../querys/themeRequest";
 
 
 
@@ -28,9 +29,27 @@ interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
+  const queryClient = useQueryClient();
+
+
+
   const { sections, title } = props;
-  const theme = useAppSelect(selectTheme);
-  const dispatch = useAppDispatch();
+  // const mutation = useMutation(toggleTheme,{
+  //   onSuccess: (data) => {
+  //     console.log("toggle theme", data);
+  //   }
+  // });
+  // const theme = data;
+
+  const { data, status, error } = useQuery('theme', getTheme);
+  const theme = data;
+
+  const onClicktoggleTheme = () =>{
+    console.log(theme);
+    toggleTheme();
+    queryClient.invalidateQueries("theme");
+  }
+
 
   return (
     <React.Fragment>
@@ -63,9 +82,9 @@ export default function Header(props: HeaderProps) {
         </Stack>
         <IconButton
           aria-label="toggle theme"
-          onClick={() => dispatch(toggleTheme())}
+          onClick={() => {onClicktoggleTheme()}}
         >
-          {theme.payload.theme === "light" ? <Brightness1 /> : <Brightness7 />}
+          {theme === "light" ? <Brightness1 /> : <Brightness7 />}
         </IconButton>
 
 

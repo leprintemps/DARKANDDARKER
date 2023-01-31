@@ -10,14 +10,14 @@ import { AppBar, Toolbar, IconButton, Button, Container, Grid } from "@mui/mater
 import { Menu as MenuIcon } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
-import { useAppSelect } from "../../config/redux/hooks";
-import { selectTheme } from "../../requests/theme/themeSlice";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import HomeHeader from "./HomeHeader";
 import HomeFooter from "./HomeFooter";
 import MainFeaturedPost from "./MainFeaturePost";
+import FeaturedPost from "./FeaturedPost";
+import Sidebar from "./Sidebar";
 
 const sections = [
     { title: 'Technology', url: '#' },
@@ -95,20 +95,20 @@ export default function HomeLayout({ children } : React.PropsWithChildren) {
                 <HomeHeader title="TOMODDATZZI" sections={sections} />
                 <main>
                 <MainFeaturedPost post={mainFeaturedPost} />
-                {/* <Grid container spacing={4}>
+                <Grid container spacing={4}>
                     {featuredPosts.map((post) => (
                     <FeaturedPost key={post.title} post={post} />
                     ))}
-                </Grid> */}
+                </Grid>
                 <Grid container spacing={5} sx={{ mt: 3 }}>
                     {/* <Main title="From the firehose" posts={posts} /> */}
                     {children}
-                    {/* <Sidebar
+                    <Sidebar
                     title={sidebar.title}
                     description={sidebar.description}
                     archives={sidebar.archives}
                     social={sidebar.social}
-                    /> */}
+                    />
                 </Grid>
                 </main>
             </Container>
