@@ -1,12 +1,12 @@
-import { BlogService } from './../blog/blog.service';
+import { MailService } from './../mail/mail.service';
 import { CreateUserDto } from './../../dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { User, UserDocument } from '../../schema/user.schema';
-import { ForbiddenException, HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from "bcrypt";
-import type { Tokens } from "../../types/tokens.type";
+import * as uuid from "uuid";
 
 @Injectable()
 export class UserService {
@@ -15,6 +15,7 @@ export class UserService {
         @InjectModel(User.name) 
         private userModel: Model<UserDocument>,
         private jwtService: JwtService,
+        private mailService: MailService,
     ) {}
 
     // 가입
@@ -23,11 +24,27 @@ export class UserService {
         // 비밀번호 암호화
         const hashedPassword = await this._hash(userDto.password);
 
+        const verifyToken = uuid.v1();
+
         // 새로운 유저 정보를 DB에 추가
         await this.userModel.create({
             ...userDto,
+            verifyToken,
             password: hashedPassword,
         });
+
+        await this._sendMailSingup(userDto.email, verifyToken);
+    }
+
+    // 메일 인증
+    async verifyEmail(verifyToken: string) : Promise<any> {
+        const user = await this.userModel.findOne({ verifyToken });
+
+        if ( !user ) {
+            throw new HttpException("User does not exists.", HttpStatus.NO_CONTENT);
+        }
+        
+        await this.userModel.findByIdAndUpdate(user._id, { isVerify: true });
     }
 
     // 로그인
@@ -90,6 +107,45 @@ export class UserService {
             access_token: tokens.access_token,
             refresh_token: tokens.refresh_token,
         };
+    }
+
+    // 비밀번호 초기화
+    async resetPassword(email: string) : Promise<any> {
+        const user = await this.userModel.findOne({ email });
+
+        if ( !user ) {
+            throw new HttpException("User does not exists.", HttpStatus.NO_CONTENT);
+        }
+
+        const uuidPassword = uuid.v1();
+        uuidPassword.toString().replaceAll("-", "").subString(0, 10);
+
+        await this.userModel.findByIdAndUpdate(user._id, { password: uuidPassword });
+
+        const subject = "TOMODDATZZI 비밀번호 초기화 안내.";
+        const html = 
+        `
+            회원님의 요청에 따라 비밀번호가 초기화되었습니다.
+            비밀번호 : [${uuidPassword}]
+        `
+
+        await this.mailService.sendMail(user.email, subject, html);
+    }
+
+    // 로그인을 위한 메일 인증
+    async _sendMailSingup(email: string, verifyToken: string) {
+        const baseUrl = "http://localhost:8080";
+        const url = `${baseUrl}/users/email-verify?signupVerifyToken=${verifyToken}`;
+        const subject = "TOMODDATZZI 가입 인증 메일.";
+        const html = 
+        `
+            가입확인 버튼을 누르시면 가입 인증이 완료됩니다. <br/>
+            <form action="${url}" method="POST">
+                <button>가입확인</button>
+            </form>
+        `;
+
+        await this.mailService.sendMail(email, subject, html);
     }
 
     // 데이터를 암호화 한다.

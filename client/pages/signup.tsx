@@ -40,7 +40,8 @@ const signupSchema = object({
         .min(8, "Password must be more than 8 characters.")
         .max(32, "Password must be less than 32 characters."),
     password_confirm: string()
-        .min(1, "Please confirm your password."),
+        .min(1, "Please confirm your password.")
+        .optional(),
     name: string()
         .min(1, "Name is required.")
         .max(30),
@@ -76,6 +77,8 @@ export default function Signup() {
     });
 
     const onSubmitHandler: SubmitHandler<IsSignup> = (data: IsSignup) => {
+        delete data.password_confirm;
+        
         dispatch(userSignupAsync(data))
         .then(() => {
             router.push("/")

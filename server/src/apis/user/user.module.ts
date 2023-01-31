@@ -1,3 +1,4 @@
+import { MailService } from './../mail/mail.service';
 import { UserService } from './user.service';
 import { User, UserSchema } from '../../schema/user.schema';
 import { JwtModule } from '@nestjs/jwt';
@@ -13,6 +14,6 @@ import { MongooseModule } from '@nestjs/mongoose';
         JwtModule.register({})
     ],
     controllers: [UserController],
-    providers: [UserService, AtStrategy, RtStrategy],
+    providers: [UserService, AtStrategy, RtStrategy, MailService],
 })
 export class UserModule {};

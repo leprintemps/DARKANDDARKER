@@ -1,7 +1,7 @@
 import { CreateUserDto } from './../../dto/user.dto';
 import { UserService } from './user.service';
 import { RtGuard } from '../../common/guards/rt.guard';
-import { Body, Controller, Post, Res, UseGuards } from "@nestjs/common";
+import { Body, Controller, Post, Query, Res, UseGuards } from "@nestjs/common";
 import { Response } from 'express';
 import { Public } from 'src/common/decorators/public.decorator';
 import { GetCurrentUserId } from 'src/common/decorators/get-current-userId.decorator';
@@ -62,6 +62,18 @@ export class UserController {
 
         response.cookie("access_token", access_token, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000}); // 1day
         response.cookie("refresh_token", refresh_token, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000}); // 1day
+    }
+
+    // 메일 인증
+    @Post("email-verify")
+    async verifyEmail(@Query() verifyToken: string) : Promise<any> {
+        return await this.userService.verifyEmail(verifyToken);
+    }
+
+    // 비밀번호 초기화
+    @Post("reset-password")
+    async resetPasswrod(@Body() email: string) : Promise<any> {
+        return await this.userService.resetPassword(email);
     }
 
 }
